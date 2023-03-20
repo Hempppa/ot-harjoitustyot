@@ -1,7 +1,7 @@
 # Ohjelmistotekniikka
 ## Tehtävät
 ### Viikko 1
---**Lihavoitua** ja *kursivoitua* tekstiä
+-- **Lihavoitua** ja *kursivoitua* tekstiä
 
 -- [gitlog.txt](https://github.com/Hempppa/ot-tyo/blob/master/laskarit/viikko1/gitlog.txt)
 
