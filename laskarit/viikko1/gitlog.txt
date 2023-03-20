@@ -1,0 +1,113 @@
+commit ffcb3cb4f5e981595f068656dd417dd014ef9d50
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 21:22:52 2023 +0200
+
+    file1 poistettu ja file22
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 48d2e0800528259cfbfed5679a5d2b9b0f3bde82
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 21:19:31 2023 +0200
+
+    tiedostoja lisätty
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit e99768a36de5c47048373850e5b5d380486693ea
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 21:10:21 2023 +0200
+
+    unohtu eka kyydistä ja muutos kolmanteen
+
+ eka.txt    | 10 ++++++++++
+ kolmas.txt |  2 +-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+commit 81f21b027327c012ebd8918efae24f21ec89a7cd
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 21:05:36 2023 +0200
+
+    uudelleen nimetty eka
+
+ tiedosto.txt | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+commit 7b9aec06174eade3382b66497c0cd68887cc8edd
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 21:02:36 2023 +0200
+
+    toinen poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit f41bec99aaf803ecdef60b8b841d3845ecdf2570
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 21:01:12 2023 +0200
+
+    poisto ja lisäys
+
+ tiedosto.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit 95ab37cca37e3cd5bbf1392b7e6e9d45066c7049
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 20:58:38 2023 +0200
+
+    paljon tekstiä
+
+ tiedosto.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit c289dd903cd3b948e21029d24ecf37048c65d330
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 20:35:54 2023 +0200
+
+    stuff hakemisto
+
+ stuff/neljas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 22b36553c3f14c630f7098c19ea3b905d7fb8f93
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 20:34:08 2023 +0200
+
+    teksti muutokset
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 23f3137d85ce83908f940e5e2e04186dff8589d0
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 20:31:57 2023 +0200
+
+    kolmas
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 31be7267b388ddfe781c4d047a04ea2c35792c45
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 20:14:31 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit a8c297d43554f27be4bbd16a315d0fc2ac2f0fc8
+Author: Hemppa <hemppa18@gmail.com>
+Date:   Mon Mar 20 20:09:10 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
