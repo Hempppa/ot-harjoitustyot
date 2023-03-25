@@ -1,6 +1,7 @@
 # Ohjelmistotekniikka
 ## Dokumentaatio
 -- [vaatimusmäärittely](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+
 -- [tuntikirjanpito](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpano.md)
 ## Laskarit
 ### Viikko 1
