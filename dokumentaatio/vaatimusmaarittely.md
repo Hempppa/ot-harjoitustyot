@@ -40,7 +40,7 @@
    - Nämä voi myös tallentaa tulostauluun, joista jokainen vaikeustaso tallennetaan erikseen
 
  - Oma "Custom" pelimuoto
-   - Kättäjä saa itse syöttää sekä kentän koon, että miinojen määrän
+   - Käyttäjä saa itse syöttää sekä kentän koon, että miinojen määrän
    - "Pelattavuus" käyttäjän omalla vastuulla, eli mahdollisuus esim. täyttää koko kenttä miinoilla
-   - Kuitenkin jokin yläraja vaikka 1000x1000, ettei sovellus kaadu
+   - Kuitenkin jokin yläraja vaikka 1000x1000 ja alaraja 1x1
    - Eri vaihtoehtojen lukumäärän takia tulostaulun käyttö ei ole järkevää
