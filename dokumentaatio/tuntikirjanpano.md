@@ -2,5 +2,5 @@
 
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
-| -     | -    | - |
-| yht   | 0    | | 
+| 28.3  | 2    | Vaatimusmäärittelytiedosto/Ohjelman suunnittelu |
+| yht   | 2    | - | 
