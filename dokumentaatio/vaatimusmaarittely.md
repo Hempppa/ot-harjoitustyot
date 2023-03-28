@@ -9,7 +9,7 @@
 ### Alkunäkymä
 
  - Tämä näkymä avautuu pelin käynnistyttyä
- - Voidaan siirtyä pelaamaan peliä
+ - Perustoteutuksessa täältä voi vain siirtyä pelaamaan peliä
 
 ### Pelin aloitus/valikko
 
