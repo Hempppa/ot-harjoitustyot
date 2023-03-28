@@ -35,7 +35,7 @@
 
 ### Muita vaikeustasoja
 
- - Muita "Presettejä" eli valmiiksi valittuja vaikeuksia
+ - Muita "Pre-settejä" eli valmiiksi valittuja vaikeuksia
    - Eli vaihtelua miinojen määrään ja kentän kokoon
    - Nämä voi myös tallentaa tulostauluun, joista jokainen vaikeustaso tallennetaan erikseen
 
