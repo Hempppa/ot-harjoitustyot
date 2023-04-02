@@ -4,6 +4,7 @@ sequenceDiagram
   participant laitehallinto
   participant rautatietori
   participant ratikka6
+  participant bussi244
   participant lippu_luukku
   participant kallen_kortti
   main->>laitehallinto: HKLLaitehallinto()
