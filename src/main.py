@@ -15,7 +15,7 @@ def main():
     display_height = len(mineField.field) * CELL_SIZE
     display_width = len(mineField.field[0]) * CELL_SIZE
     #Paires the numbers with matching sprites
-    level = Level(mineField, CELL_SIZE)
+    level = Level(mineField.field, CELL_SIZE)
 
     display = pygame.display.set_mode((display_width, display_height))
     pygame.display.set_caption("Minesweeper")

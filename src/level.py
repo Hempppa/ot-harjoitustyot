@@ -24,9 +24,9 @@ class Level:
         self._initialize_sprites(mineField)
 
     def _initialize_sprites(self, mineField):
-        for y in range(len(mineField.field)):
-            for x in range(len(mineField.field[0])):
-                cell = mineField.field[y][x]
+        for y in range(len(mineField)):
+            for x in range(len(mineField[0])):
+                cell = mineField[y][x]
                 x_position = x*self.cell_size
                 y_position = y*self.cell_size
 
@@ -68,7 +68,7 @@ class Level:
                     self.cellSeven.add(temp)
                 elif cell == 8:
                     temp = CellEight(x_position,y_position)
-                    sself.pairings[(x,y)] = (temp, cover)
+                    self.pairings[(x,y)] = (temp, cover)
                     self.cellEight.add(temp)
                 elif cell == 9:
                     temp = CellNine(x_position,y_position)
@@ -81,10 +81,10 @@ class Level:
             for cell in self.all_other_cells:
                 if cell.rect.collidepoint(pos):
                     if type(cell) == CellNine:
-                        return self.gameOver()
+                        self.cellCovers.empty()
+                        return False
                     else:
-                        self.reveal(cell)
-                        return True
+                        return self.reveal(cell)
 
     def gameOver(self):
         self.cellCovers.empty()
@@ -102,3 +102,6 @@ class Level:
                             self.reveal(self.pairings[(x+j-1,y+i-1)][0])
             self.cellCovers.remove(self.pairings[(x,y)][1])            
         
+        if len(self.cellCovers.sprites()) == 0:
+            return False
+        return True

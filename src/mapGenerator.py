@@ -9,7 +9,7 @@ class mapGen():
         #divide into equal lists to get a minefield
         self.field = []
         for i in range(y):
-            self.field.append(cells[i*y:(i+1)*y])
+            self.field.append(cells[i*x:(i+1)*x])
         
         #numbering the minefield
         for y in range(len(self.field)):
@@ -28,3 +28,5 @@ class mapGen():
                 if 0 <= y_proper and y_proper < len(self.field) and 0 <= x_proper and x_proper < len(self.field[0]) and self.field[y_proper][x_proper] == 9:
                     count += 1
         return count
+    
+print(mapGen(6,7,20))
