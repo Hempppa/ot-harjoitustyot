@@ -1,14 +1,27 @@
-# Ohjelmistotekniikka
+# Miinaharava
+Sovellus toimii kuin "suoraviivaisempi" miinaharavapeli. Pelaajan tarkoitus on siis, osumatta miinoihin, tyhjentää kenttä kaikista muista ruuduista. Tähän avustukseksi "tyhjät" ruudut ilmoittavat miinojen lukeman 3x3 ruudukossa niiden ympäriltä. OIkeasti tyhjät ruudut avaavat automaattisesti koko ko. alueen.
 ## Dokumentaatio
--- [vaatimusmäärittely](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+- [vaatimusmäärittely](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+- [tuntikirjanpito](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpano.md)
+- [Changelog](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/changelog.md)
 
--- [tuntikirjanpito](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpano.md)
-## Laskarit
-### Viikko 1
--- **Lihavoitua** ja *kursivoitua* tekstiä
-
--- [gitlog.txt](https://github.com/Hempppa/ot-tyo/blob/master/laskarit/viikko1/gitlog.txt)
-
--- [komentorivi.txt](https://github.com/Hempppa/ot-tyo/blob/master/laskarit/viikko1/komentorivi.txt)
-### Viikko 2
--- [kuvankaappaus](https://github.com/Hempppa/ot-harjoitustyo/blob/master/laskarit/viikko2/Screenshot%20from%202023-03-25%2001-58-42.png)
+## Komentorivitoiminnot
+Tällä hetkellä alkuun pääsemiseen riittää pelkkä riippuvuuksien asentaminen
+```bash
+poetry install
+```
+Tämän jälkeen peliä voi pelata komennolla:
+```bash
+poetry run invoke start
+```
+### Testaus
+(Testit ovat hetkellä hyvin vaiheessa)
+Pytest testit voi kuitenkin suorittaa
+```bash
+poetry run invoke test
+```
+Ja testikattavuus
+```bash
+poetry run invoke coverage-report
+```
+index.html tallennetaan htmlcov-hakemistoon
