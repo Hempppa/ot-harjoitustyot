@@ -42,5 +42,11 @@
  - Oma "Custom" pelimuoto
    - Käyttäjä saa itse syöttää sekä kentän koon, että miinojen määrän
    - "Pelattavuus" käyttäjän omalla vastuulla, eli mahdollisuus esim. täyttää koko kenttä miinoilla
-   - Kuitenkin jokin yläraja vaikka 1000x1000 ja alaraja 1x1
+   - Kuitenkin jokin yläraja vaikka 38x21* ja alaraja 1x1
    - Eri vaihtoehtojen lukumäärän takia tulostaulun käyttö ei ole järkevää
+
+### Ehkä resoluution säätö
+
+ - Peli osaa itse tai ainakin pelaajan avustamana säätää halutun resoluution
+   - Hetkellä jää paljon tyhjää tilaa tai menee näytön ulkopuolelle
+   - *Myös kentän koko rajottuu 38x21, kun näytölle ei mahdu enempää 50x50 pikseli ruutuja
