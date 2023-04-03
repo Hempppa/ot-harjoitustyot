@@ -87,6 +87,7 @@ class Level:
                         return self.reveal(cell)
 
     def gameOver(self):
+        #Tänne uudelleen yrittämistä varten toiminto
         self.cellCovers.empty()
         return False
 
@@ -102,6 +103,7 @@ class Level:
                             self.reveal(self.pairings[(x+j-1,y+i-1)][0])
             self.cellCovers.remove(self.pairings[(x,y)][1])            
         
-        if len(self.cellCovers.sprites()) == 0:
+        if len(self.cellCovers.sprites()) == len(self.cellNine.sprites()):
+            #Tänne voitto tilanne pelkän pelin loppumisen sijaan
             return False
         return True
