@@ -1,5 +1,7 @@
 import pygame
 from sprites.cell import CellCover, CellZero, CellOne, CellTwo, CellThree, CellFour, CellFive, CellSix, CellSeven, CellEight, CellNine
+from sprites.flag import Flag
+from sprites.highlight import Highlight
 
 class Level:
     def __init__(self, mineField, cell_size):
@@ -17,6 +19,9 @@ class Level:
         self.cellSeven = pygame.sprite.Group()
         self.cellEight = pygame.sprite.Group()
         self.cellNine = pygame.sprite.Group()
+
+        self.flags = pygame.sprite.Group()
+        self.highlights = pygame.sprite.Group()
 
         self.all_other_cells = pygame.sprite.Group()
         self.pairings = {}
@@ -80,22 +85,43 @@ class Level:
         if buttons[0]:
             for cell in self.all_other_cells:
                 if cell.rect.collidepoint(pos):
-                    if type(cell) == CellNine:
-                        self.cellCovers.empty()
-                        return False
-                    else:
-                        return self.reveal(cell)
+                    return self.reveal(cell)
+        else:
+            for cover in self.cellCovers:
+                if cover.rect.collidepoint(pos):
+                    return self.flag(cover)
 
     def gameOver(self):
         #Tänne uudelleen yrittämistä varten toiminto
         self.cellCovers.empty()
+        for flag in self.flags:
+            self.highlights.add(Highlight(flag.rect.x, flag.rect.y))
+        self.flags.empty()
         return False
+    
+    def flag(self, cover):
+        if cover.flagged == None:
+            if len(self.flags) < len(self.cellNine):
+                newFlag = Flag(cover.rect.x, cover.rect.y)
+                self.flags.add(newFlag)
+                cover.flagged = newFlag
+                #mahdollinen ilmoitus lippujen loppumisesta
+        else:
+            currentFlag = cover.flagged
+            self.flags.remove(currentFlag)
+            cover.flagged = None
+        return True
+
 
     def reveal(self, cell):
         if cell.covered:
-            cell.covered = False
             y = cell.rect.y//self.cell_size
             x = cell.rect.x//self.cell_size
+            if self.pairings[(x,y)][1].flagged != None:
+                return True
+            if type(cell) == CellNine:
+                return self.gameOver()
+            cell.covered = False
             if type(cell) == CellZero:
                 for i in range(3):
                     for j in range(3):

@@ -9,5 +9,7 @@ class Renderer:
     def render(self):
         self._level.all_other_cells.draw(self._display)
         self._level.cellCovers.draw(self._display)
+        self._level.flags.draw(self._display)
+        self._level.highlights.draw(self._display)
 
         pygame.display.update()
