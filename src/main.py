@@ -2,9 +2,11 @@ import pygame
 import time
 from mapGenerator import mapGen
 from level import Level
+from start import Start
 from game_loop import GameLoop
 from event_queue import EventQueue
 from renderer import Renderer
+from startRenderer import StartRenderer
 from clock import Clock
 
 CELL_SIZE = 50
@@ -17,18 +19,23 @@ def main():
     #Paires the numbers with matching sprites
     level = Level(mineField.field, CELL_SIZE)
 
+    pygame.init()
+
     display = pygame.display.set_mode((display_width, display_height))
     pygame.display.set_caption("Minesweeper")
 
     event_queue = EventQueue()
+    start_renderer = StartRenderer(display)
     renderer = Renderer(display, level)
     clock = Clock()
+
+    start = Start(start_renderer, event_queue, clock, CELL_SIZE)
     game_loop = GameLoop(level, renderer, event_queue, clock, CELL_SIZE)
 
-    pygame.init()
-    game_loop.start()
-    renderer.render()
-    time.sleep(3)
+    if start.start():
+        game_loop.start()
+        renderer.render()
+        time.sleep(3)
 
 if __name__ == "__main__":
     main()

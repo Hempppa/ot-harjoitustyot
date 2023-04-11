@@ -24,6 +24,7 @@ class Level:
         self.highlights = pygame.sprite.Group()
 
         self.all_other_cells = pygame.sprite.Group()
+        self.allCells = pygame.sprite.Group()
         self.pairings = {}
 
         self._initialize_sprites(mineField)
