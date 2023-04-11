@@ -93,12 +93,11 @@ class Level:
                     return self.flag(cover)
 
     def gameOver(self):
-        #Tänne uudelleen yrittämistä varten toiminto
         self.cellCovers.empty()
         for flag in self.flags:
             self.highlights.add(Highlight(flag.rect.x, flag.rect.y))
         self.flags.empty()
-        return False
+        return 0
     
     def flag(self, cover):
         if cover.flagged == None:
@@ -111,7 +110,7 @@ class Level:
             currentFlag = cover.flagged
             self.flags.remove(currentFlag)
             cover.flagged = None
-        return True
+        return
 
 
     def reveal(self, cell):
@@ -131,6 +130,5 @@ class Level:
             self.cellCovers.remove(self.pairings[(x,y)][1])            
         
         if len(self.cellCovers.sprites()) == len(self.cellNine.sprites()):
-            #Tänne voitto tilanne pelkän pelin loppumisen sijaan
-            return False
-        return True
+            return 1
+        return
