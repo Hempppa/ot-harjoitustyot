@@ -58,6 +58,7 @@ def main():
         else:
             continue
 
+        #This part starts the actual game
         #returns a number table
         mineField = mapGen(grid_x, grid_y, mines)
         display_height = len(mineField.field) * CELL_SIZE
