@@ -1,6 +1,7 @@
 import unittest
 from mapGenerator import mapGen
 
+
 class TestmapGenerator(unittest.TestCase):
     def setUp(self):
         self.mineField = mapGen(6, 7, 20)

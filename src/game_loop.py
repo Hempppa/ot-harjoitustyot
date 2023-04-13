@@ -16,7 +16,6 @@ class GameLoop:
                 return end_condition
             self._render()
             self._clock.tick(60)
-        
 
     def _handle_events(self):
         for event in self._event_queue.get():
