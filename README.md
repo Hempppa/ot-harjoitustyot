@@ -1,5 +1,5 @@
 # Miinaharava
-Sovellus toimii kuin "suoraviivaisempi" miinaharavapeli. Pelaajan tarkoitus on siis, osumatta miinoihin, tyhjentää kenttä kaikista muista ruuduista. Tähän avustukseksi "tyhjät" ruudut ilmoittavat miinojen lukeman 3x3 ruudukossa niiden ympäriltä. OIkeasti tyhjät ruudut avaavat automaattisesti koko ko. alueen.
+Sovellus toimii kuin klassinen miinaharavapeli. Pelaajan tarkoitus on siis, osumatta miinoihin, tyhjentää kenttä kaikista muista ruuduista. Tähän avustukseksi "tyhjät" ruudut ilmoittavat miinojen lukeman 3x3 ruudukossa niiden ympäriltä. Oikeasti tyhjät ruudut avaavat automaattisesti koko ko. alueen. Ruutuja voi myös liputtaa miinoiksi, jotta niitä olisi helpompi seurata.
 ## Dokumentaatio
 - [vaatimusmäärittely](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 - [tuntikirjanpito](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpano.md)
