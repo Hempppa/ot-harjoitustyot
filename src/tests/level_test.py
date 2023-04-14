@@ -1,11 +1,10 @@
-from mapGenerator import mapGen
+from map_generator import MapGen
 from level import Level
 import unittest
 
-
 class TestLevel(unittest.TestCase):
     def setUp(self):
-        self.mineField1 = mapGen()
+        self.mineField1 = MapGen(20, 20, 200)
         self.mineField2 = [[1, 1, 1],
                            [1, 9, 1],
                            [1, 1, 1]]
@@ -17,22 +16,16 @@ class TestLevel(unittest.TestCase):
         self.sprite_handler3 = Level(self.mineField3, 50)
 
     def test_correct_amount_of_cell_sprites(self):
-        # 1 handler
-        self.assertEqual(
-            len(self.sprite_handler1.all_other_cells.sprites()), 16*16)
+        self.assertEqual(len(self.sprite_handler1.all_cells.sprites()), 20*20)
 
     def test_correct_sprite_types(self):
-        # 2
-        self.assertEqual(len(self.sprite_handler2.cellOne.sprites()), 8)
-        self.assertEqual(len(self.sprite_handler2.cellNine.sprites()), 1)
+        self.assertEqual(len(self.sprite_handler2.cells_numbers.sprites()), 8)
+        self.assertEqual(len(self.sprite_handler2.cells_nine.sprites()), 1)
 
     def test_correct_amount_of_cell_covers(self):
-        # 1
-        self.assertEqual(len(self.sprite_handler1.cellCovers.sprites()), len(
-            self.sprite_handler1.all_other_cells.sprites()))
+        self.assertEqual(len(self.sprite_handler1.cell_covers.sprites()), len(self.sprite_handler1.all_cells.sprites()))
 
     def test_pairing_works(self):
-        # 1
         for pair in self.sprite_handler1.pairings:
             location = self.sprite_handler1.pairings[pair]
             cell = location[0]
@@ -41,21 +34,33 @@ class TestLevel(unittest.TestCase):
             self.assertEqual(cell.rect.y, cover.rect.y)
 
     def test_clearing_numbered_cell_works(self):
-        # 2
-        self.assertEqual(self.sprite_handler2.cellClicked((True, False, False), (25, 25)), True)
-        self.assertEqual(len(self.sprite_handler2.cellCovers.sprites()), 8)
+        self.assertEqual(self.sprite_handler2.cell_clicked((True, False, False), (25, 25)), 10)
+        self.assertEqual(len(self.sprite_handler2.cell_covers.sprites()), 8)
 
     def test_clearing_empty_cell_clears_more(self):
-        # 3
-        self.assertEqual(self.sprite_handler3.cellClicked((True, False, False), (25, 25)), False)
-        self.assertEqual(len(self.sprite_handler3.cellCovers.sprites()), 0)
+        self.assertEqual(self.sprite_handler3.cell_clicked((True, False, False), (25, 25)), 1)
+        self.assertEqual(len(self.sprite_handler3.cell_covers.sprites()), 0)
 
     def test_clearing_a_mine_ends_game(self):
-        # 2
-        self.assertEqual(self.sprite_handler2.cellClicked((True, False, False), (75, 75)), False)
-        self.assertEqual(len(self.sprite_handler2.cellCovers.sprites()), 0)
+        self.assertEqual(self.sprite_handler2.cell_clicked((True, False, False), (75, 75)), 0)
+        self.assertEqual(len(self.sprite_handler2.cell_covers.sprites()), 0)
 
-    def test_gameover_clears_board(self):
-        # 2
-        self.assertEqual(self.sprite_handler2.gameOver(), False)
-        self.assertEqual(len(self.sprite_handler2.cellCovers.sprites()), 0)
+    def test_zero_flags_at_start(self):
+        self.assertEqual(len(self.sprite_handler1.flags), 0)
+
+    def test_gameover_modifies_board(self):
+        self.sprite_handler2.cell_clicked((False, True, False), (25, 25))
+        self.assertEqual(self.sprite_handler2.game_over(), 0)
+        self.assertEqual(len(self.sprite_handler2.cell_covers.sprites()), 0)
+
+    def test_flagging_cells_works(self):
+        self.assertEqual(self.sprite_handler1.cell_clicked((False, True, False), (25, 25)), 10)
+        self.assertEqual(len(self.sprite_handler1.flags), 1)
+        self.assertEqual(self.sprite_handler1.flag(self.sprite_handler1.pairings[(0, 1)][1]), None)
+        self.assertEqual(len(self.sprite_handler1.flags), 2)
+
+    def test_cant_have_more_flags_than_mines(self):
+        self.assertEqual(self.sprite_handler2.flag(self.sprite_handler2.pairings[(0, 1)][1]), None)
+        self.assertEqual(len(self.sprite_handler2.flags), 1)
+        self.assertEqual(self.sprite_handler2.flag(self.sprite_handler2.pairings[(1, 1)][1]), None)
+        self.assertEqual(len(self.sprite_handler2.flags), 1)

@@ -1,10 +1,8 @@
+#import time
 import pygame
-import time
-from mapGenerator import mapGen
+from map_generator import MapGen
 from level import Level
-from start import Start
-from default_menu import DefaultLoop
-from game_loop import GameLoop
+from input_handlers import GameLoop, StartMenu, DifficultySelection
 from event_queue import EventQueue
 from clock import Clock
 
@@ -14,71 +12,73 @@ from ui.difficulty_menu_renderer import DiffRenderer
 
 CELL_SIZE = 50
 
+class GameEngine():
+    def __init__(self):
+        #sama pylint errori taas, en tiiä miksi
+        pygame.init() #pylint: disable=no-member
+        self.display = pygame.display.set_mode((750, 750))
+        pygame.display.set_caption("Minesweeper")
 
-def main():
-    pygame.init()
+    def enter_diff_selection(self):
+        event_queue2 = EventQueue()
+        clock2 = Clock()
+        renderer2 = DiffRenderer(self.display)
+        difficulties = DifficultySelection(renderer2, event_queue2, clock2, CELL_SIZE)
+        diff = difficulties.start()
+        selected = (16,16,40)
+        if diff == -1:
+            return -1
+        if diff == 0:
+            # easy
+            selected = (9,9,10)
+        elif diff == 1:
+            # medium
+            pass
+        elif diff == 2:
+            # hard
+            selected = (30,16,99)
+        return selected
 
-    display = pygame.display.set_mode((750, 750))
-    pygame.display.set_caption("Minesweeper")
-
-    event_queue = EventQueue()
-    menu_renderer = MenuRenderer(display)
-    clock = Clock()
-    start = Start(menu_renderer, event_queue, clock, CELL_SIZE)
-
-    difficulty_renderer = DiffRenderer(display)
-    difficulties = DefaultLoop(difficulty_renderer, event_queue, clock, CELL_SIZE)
-
-    while True:
-        grid_x = 16
-        grid_y = 16
-        mines = 40
-        display = pygame.display.set_mode((750, 750))
-        option_select = start.start()
-        if option_select == -1:
-            break
-        elif option_select == 0:
-            diff = difficulties.start()
-            if diff == -1:
-                break
-            elif diff == 0:
-                # easy
-                grid_x = 9
-                grid_y = 9
-                mines = 10
-            elif diff == 1:
-                # medium
-                pass
-            elif diff == 2:
-                # hard
-                grid_x = 30
-                grid_y = 16
-                mines = 99
-        elif option_select == 1:
-            continue
-        # elif option_select == 2: leaderboard
-        else:
-            continue
-
-        # This part starts the actual game
-        # returns a number table
-        mineField = mapGen(grid_x, grid_y, mines)
-        display_height = len(mineField.field) * CELL_SIZE
-        display_width = len(mineField.field[0]) * CELL_SIZE
+    def start_game_loop(self, grid_x, grid_y, mines):
+        mine_field = MapGen(grid_x, grid_y, mines)
         # Paires the numbers with matching sprites
-        level = Level(mineField.field, CELL_SIZE)
-        display = pygame.display.set_mode((display_width, display_height))
-        level_renderer = LevelRenderer(display, level)
-        game_loop = GameLoop(level, level_renderer, event_queue, clock, CELL_SIZE)
+        level = Level(mine_field.field, CELL_SIZE)
+        pygame.display.set_mode((grid_x*CELL_SIZE, grid_y*CELL_SIZE))
+        event_queue3 = EventQueue()
+        clock3 = Clock()
+        renderer3 = LevelRenderer(self.display, level)
+        game_loop = GameLoop(level, renderer3, event_queue3, clock3, CELL_SIZE)
+        return game_loop.start()
 
-        end_condition = game_loop.start()
-        level_renderer.render()
-        if end_condition == -1:
-            break
-        elif end_condition == 0:
-            time.sleep(3)
-        # elif end_condition == 1: input leaderboard
+    def enter_main_menu(self):
+        event_queue1 = EventQueue()
+        clock1 = Clock()
+        renderer1 = MenuRenderer(self.display)
+        start_menu = StartMenu(renderer1, event_queue1, clock1, CELL_SIZE)
+        return start_menu.start()
 
+    def menu(self):
+        while True:
+            option_select = self.enter_main_menu()
+            if option_select == -1:
+                break
+            if option_select == 0:
+                selected = self.enter_diff_selection()
+                if selected == -1:
+                    break
+                (grid_x, grid_y, mines) = selected
+            elif option_select == 1:
+                continue
+            # elif option_select == 2: leaderboard
+            else:
+                continue
+            end_condition = self.start_game_loop(grid_x, grid_y, mines)
+            if end_condition == -1:
+                break
+            if end_condition == 0:
+                pygame.time.wait(3000)
+            # elif end_condition == 1: input leaderboard
 
 if __name__ == "__main__":
-    main()
+    game = GameEngine()
+    game.menu()

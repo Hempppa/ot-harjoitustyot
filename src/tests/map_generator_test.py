@@ -1,10 +1,10 @@
 import unittest
-from mapGenerator import mapGen
+from map_generator import MapGen
 
 
 class TestmapGenerator(unittest.TestCase):
     def setUp(self):
-        self.mineField = mapGen(6, 7, 20)
+        self.mineField = MapGen(6, 7, 20)
 
     def test_correct_heigth(self):
         self.assertEqual(len(self.mineField.field), 7)
