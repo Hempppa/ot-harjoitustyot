@@ -7,4 +7,5 @@
 |       | 3    | Ohjelman alkeelinen testaaminen |
 | 11.4  | 3    | Lisää ominaisuuksia |
 |       | 3    | Visuaalisia parannuksia ja vielä enemmän ominaisuuksia |
-| yht   | 11   | - | 
+| 14.4  | 5    | Pylint ja ohjelman siistiäminen |
+| yht   | 22   | - | 

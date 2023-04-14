@@ -8,13 +8,13 @@
 
 ### Alkunäkymä
 
- - Tämä näkymä avautuu pelin käynnistyttyä
- - Perustoteutuksessa täältä voi vain siirtyä pelaamaan peliä
+ - Tämä näkymä avautuu pelin käynnistyttyä - tehty
+ - Perustoteutuksessa täältä voi vain siirtyä pelaamaan peliä - tehty
 
 ### Pelin aloitus/valikko
 
- - Alussa on vain yksi vaikeustaso, joten peli alkaa suoraan 
- - Peliä pelataan tavallisen miinaharavan tyyliin:
+ - Alussa on vain yksi vaikeustaso, joten peli alkaa suoraan - tehty
+ - Peliä pelataan tavallisen miinaharavan tyyliin: - tehty
    - Pelin tavoite on avata kaikki miinattomat ruudut
    - Jos avataan miinan sisältävä ruutu, peli päättyy
    - Kukin avattu miinaton ruutu kertoo numerolla montako miinaa sen viereisistä ruuduista (1-8kpl) löytyy
@@ -35,8 +35,8 @@
 
 ### Muita vaikeustasoja
 
- - Muita "Pre-settejä" eli valmiiksi valittuja vaikeuksia
-   - Eli vaihtelua miinojen määrään ja kentän kokoon
+ - Muita "Pre-settejä" eli valmiiksi valittuja vaikeuksia - tehty
+   - Eli vaihtelua miinojen määrään ja kentän kokoon - tehty
    - Nämä voi myös tallentaa tulostauluun, joista jokainen vaikeustaso tallennetaan erikseen
 
  - Oma "Custom" pelimuoto

@@ -12,11 +12,12 @@
 ## Viikko 4 
 
 - pääsiäisloma
+
+## Viikko 5
+
 - Peliin liputus mekaniikka
    - Toimii niin kuin pitäisi, eli lippuja vain miinojen verran ja liputettua ruutua ei saa avattua
 - Muita näkymiä peliin
    - Aloitusruutu; Hetkellä vain välivaihe, mutta myöhemmin valikko täydentyy
-   - Vaikeustaso valikoima; Nyt pelissä voi valita kolmen vaikeustason välillä
-
-## Viikko 5
- 
+   - Vaikeustaso valikoima; Nyt pelissä voi valita kolmen vaikeustason välillä 
+- pylint käyttöön
