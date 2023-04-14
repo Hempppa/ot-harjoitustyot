@@ -4,6 +4,7 @@ Sovellus toimii kuin "suoraviivaisempi" miinaharavapeli. Pelaajan tarkoitus on s
 - [vaatimusmäärittely](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 - [tuntikirjanpito](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpano.md)
 - [Changelog](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/changelog.md)
+- [Luokkakaavio](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/luokkakaavio.md) (Tulee vielä muuttumaan jo ensi versiossa)
 
 ## Komentorivitoiminnot
 Tällä hetkellä alkuun pääsemiseen riittää pelkkä riippuvuuksien asentaminen
@@ -15,13 +16,17 @@ Tämän jälkeen peliä voi pelata komennolla:
 poetry run invoke start
 ```
 ### Testaus
-(Testit ovat hetkellä hyvin vaiheessa)
-Pytest testit voi kuitenkin suorittaa
+Pytest testit voi suorittaa
 ```bash
 poetry run invoke test
 ```
-Ja testikattavuus
+
+Ja testikattavuus (index.html tallennetaan htmlcov-hakemistoon)
 ```bash
 poetry run invoke coverage-report
 ```
-index.html tallennetaan htmlcov-hakemistoon
+
+Myös ohjelman siisteyttä voi arvioida pylintillä
+```bash
+poetry run invoke lint
+```
