@@ -18,10 +18,9 @@ class DefaultLoop:
 
     def _handle_events(self):
         for event in self._event_queue.get():
-            #en tiedä miksi, mutta pylint sanoo näissä no-member errorin
-            if event.type == pygame.QUIT: #pylint: disable=no-member
+            if event.type == pygame.QUIT:
                 return -1
-            if event.type == pygame.MOUSEBUTTONDOWN: #pylint: disable=no-member
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 buttons = pygame.mouse.get_pressed()
                 pos = pygame.mouse.get_pos()
                 #print(buttons)
@@ -53,10 +52,9 @@ class GameLoop(DefaultLoop):
 
     def _handle_events(self):
         for event in self._event_queue.get():
-            #en tiedä miksi, mutta pylint sanoo näissä no-member errorin
-            if event.type == pygame.QUIT: #pylint: disable=no-member
+            if event.type == pygame.QUIT:
                 return -1
-            if event.type == pygame.MOUSEBUTTONDOWN: #pylint: disable=no-member
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 buttons = pygame.mouse.get_pressed(3)
                 pos = pygame.mouse.get_pos()
                 self._event_queue.wait()
