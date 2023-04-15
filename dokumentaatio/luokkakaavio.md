@@ -1,11 +1,13 @@
 ```mermaid
    classDiagram
-	Menu "1" -- "0..1" StartMenu
-	Menu "1" -- "0..1" DifficultySelection
+	Menu "1" -- "1" StartMenu
+	Menu "1" -- "1" DifficultySelection
 	Menu "1" -- "0..1" GameLoop
 	DefaultLoop --|> StartMenu
 	DefaultLoop --|> DifficultySelection
 	DefaultLoop --|> GameLoop
+	Menu "1" -- "1" Clock
+	Menu "1" -- "1" EventQueue
 	StartMenu "1" -- "1" Clock
 	DifficultySelection "1" -- "1" Clock
 	GameLoop "1" -- "1" Clock

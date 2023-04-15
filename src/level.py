@@ -68,12 +68,12 @@ class Level:
             temp = CellEight(x_position, y_position)
         return temp
 
-    def cell_clicked(self, buttons, pos):
-        if buttons[0]:
+    def cell_clicked(self, button, pos):
+        if button == 1:
             for cell in self.all_cells:
                 if cell.rect.collidepoint(pos):
                     return self.reveal(cell)
-        else:
+        elif button == 3:
             for cover in self.cell_covers:
                 if cover.rect.collidepoint(pos):
                     self.flag(cover)

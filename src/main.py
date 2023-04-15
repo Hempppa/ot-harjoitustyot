@@ -14,17 +14,18 @@ CELL_SIZE = 50
 
 class GameEngine():
     def __init__(self):
-        #sama pylint errori taas, en tiiä miksi
-        pygame.init() #pylint: disable=no-member
+        pygame.init()
         self.display = pygame.display.set_mode((750, 750))
         pygame.display.set_caption("Minesweeper")
+        self.event_queue = EventQueue()
+        self.clock = Clock()
+        renderer = MenuRenderer(self.display)
+        self.start_menu = StartMenu(renderer, self.event_queue, self.clock, CELL_SIZE)
+        renderer = DiffRenderer(self.display)
+        self.difficulties = DifficultySelection(renderer, self.event_queue, self.clock, CELL_SIZE)
 
     def enter_diff_selection(self):
-        event_queue2 = EventQueue()
-        clock2 = Clock()
-        renderer2 = DiffRenderer(self.display)
-        difficulties = DifficultySelection(renderer2, event_queue2, clock2, CELL_SIZE)
-        diff = difficulties.start()
+        diff = self.difficulties.start()
         selected = (16,16,40)
         if diff == -1:
             return -1
@@ -44,22 +45,13 @@ class GameEngine():
         # Paires the numbers with matching sprites
         level = Level(mine_field.field, CELL_SIZE)
         pygame.display.set_mode((grid_x*CELL_SIZE, grid_y*CELL_SIZE))
-        event_queue3 = EventQueue()
-        clock3 = Clock()
-        renderer3 = LevelRenderer(self.display, level)
-        game_loop = GameLoop(level, renderer3, event_queue3, clock3, CELL_SIZE)
+        renderer = LevelRenderer(self.display, level)
+        game_loop = GameLoop(level, renderer, self.event_queue, self.clock, CELL_SIZE)
         return game_loop.start()
-
-    def enter_main_menu(self):
-        event_queue1 = EventQueue()
-        clock1 = Clock()
-        renderer1 = MenuRenderer(self.display)
-        start_menu = StartMenu(renderer1, event_queue1, clock1, CELL_SIZE)
-        return start_menu.start()
 
     def menu(self):
         while True:
-            option_select = self.enter_main_menu()
+            option_select = self.start_menu.start()
             if option_select == -1:
                 break
             if option_select == 0:

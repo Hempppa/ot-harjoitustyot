@@ -21,10 +21,10 @@ class DefaultLoop:
             if event.type == pygame.QUIT:
                 return -1
             if event.type == pygame.MOUSEBUTTONDOWN:
-                buttons = pygame.mouse.get_pressed()
+                button = event.__dict__['button']
                 pos = pygame.mouse.get_pos()
                 #print(buttons)
-                if buttons[0]:
+                if button == 1:
                     return self.check_button_pressed(pos)
         return 10
 
@@ -55,11 +55,18 @@ class GameLoop(DefaultLoop):
             if event.type == pygame.QUIT:
                 return -1
             if event.type == pygame.MOUSEBUTTONDOWN:
-                buttons = pygame.mouse.get_pressed(3)
+                button = event.__dict__['button']
                 pos = pygame.mouse.get_pos()
-                self._event_queue.wait()
-                #print(buttons)
-                game_situation = self._level.cell_clicked(buttons, pos)
-                if isinstance(game_situation, int):
+                #Pelin hidas "reagointi" johtuu tästä, edetään vasta kun MOUSEUP
+                #Kuitenkin ilman tätä peli hajoaa kun ei rekisteröi MOUSEUP
+                self.wait_for_mouse_button_up()
+                game_situation = self._level.cell_clicked(button, pos)
+                if game_situation in (1, 0):
                     return game_situation
         return 10
+
+    def wait_for_mouse_button_up(self):
+        while True:
+            event = self._event_queue.wait()
+            if event.type == pygame.MOUSEBUTTONUP and event.__dict__['button'] == 1:
+                break

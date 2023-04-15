@@ -8,4 +8,5 @@
 | 11.4  | 3    | Lisää ominaisuuksia |
 |       | 3    | Visuaalisia parannuksia ja vielä enemmän ominaisuuksia |
 | 14.4  | 5    | Pylint ja ohjelman siistiäminen |
-| yht   | 22   | - | 
+| 15.4  | 3    | testauksen korjaamista ja laajentamista sekä ohjelma lisäyksiä
+| yht   | 25   | - | 
