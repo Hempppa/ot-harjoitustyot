@@ -19,12 +19,11 @@ class GameEngine():
         pygame.display.set_caption("Minesweeper")
         self.event_queue = EventQueue()
         self.clock = Clock()
-        renderer = MenuRenderer(self.display)
-        self.start_menu = StartMenu(renderer, self.event_queue, self.clock, CELL_SIZE)
-        renderer = DiffRenderer(self.display)
-        self.difficulties = DifficultySelection(renderer, self.event_queue, self.clock, CELL_SIZE)
+        self.start_menu = StartMenu(None, self.event_queue, self.clock, CELL_SIZE)
+        self.difficulties = DifficultySelection(None, self.event_queue, self.clock, CELL_SIZE)
 
     def enter_diff_selection(self):
+        self.difficulties.set_renderer(DiffRenderer(self.display))
         diff = self.difficulties.start()
         selected = (16,16,40)
         if diff == -1:
@@ -49,9 +48,13 @@ class GameEngine():
         game_loop = GameLoop(level, renderer, self.event_queue, self.clock, CELL_SIZE)
         return game_loop.start()
 
+    def enter_start_menu(self):
+        self.start_menu.set_renderer(MenuRenderer(self.display))
+        return self.start_menu.start()
+
     def menu(self):
         while True:
-            option_select = self.start_menu.start()
+            option_select = self.enter_start_menu()
             if option_select == -1:
                 break
             if option_select == 0:
@@ -59,8 +62,7 @@ class GameEngine():
                 if selected == -1:
                     break
                 (grid_x, grid_y, mines) = selected
-            elif option_select == 1:
-                continue
+            #elif option_select == 1: custom difficulty
             # elif option_select == 2: leaderboard
             else:
                 continue
@@ -69,7 +71,8 @@ class GameEngine():
                 break
             if end_condition == 0:
                 pygame.time.wait(3000)
-            # elif end_condition == 1: input leaderboard
+            elif end_condition == 1:
+                pygame.time.wait(1000) #input leaderboard myöhemmin
 
 if __name__ == "__main__":
     game = GameEngine()

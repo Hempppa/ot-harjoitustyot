@@ -4,7 +4,7 @@ import pygame
 class MenuRenderer:
     def __init__(self, display):
         self._display = display
-        pygame.display.set_mode((750, 750))
+        pygame.display.set_mode((750,750))
         self.base_font = pygame.font.Font(None, 80)
         self.title_font = pygame.font.Font(None, 140)
         self.option_rect = (100, 200, 550, 75)

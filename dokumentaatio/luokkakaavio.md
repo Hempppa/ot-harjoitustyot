@@ -14,9 +14,6 @@
 	StartMenu "1" -- "1" EventQueue
 	DifficultySelection "1" -- "1" EventQueue
 	GameLoop "1" -- "1" EventQueue
-	StartMenu "1" -- "1" ui
-	DifficultySelection "1" -- "1" ui
-	GameLoop "1" -- "1" ui
 	MapGen "1" -- "1" Level
 	Level "1" -- "1" GameLoop
 	Level "1" -- "0..*" Sprites

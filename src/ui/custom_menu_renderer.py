@@ -5,6 +5,7 @@ import pygame
 class DiffRenderer:
     def __init__(self, display):
         self._display = display
+        pygame.display.set_mode((750,750))
         self.fonts = [pygame.font.Font(None, 140), pygame.font.Font(None, 80)]
         self.rect = (200, 75)
         dirname = os.path.dirname(__file__)

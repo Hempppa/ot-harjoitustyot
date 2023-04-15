@@ -7,6 +7,9 @@ class DefaultLoop:
         self._clock = clock
         self._cell_size = cell_size
 
+    def set_renderer(self, renderer):
+        self._renderer = renderer
+
     def start(self):
         while True:
             events = self._handle_events()
@@ -59,14 +62,14 @@ class GameLoop(DefaultLoop):
                 pos = pygame.mouse.get_pos()
                 #Pelin hidas "reagointi" johtuu tästä, edetään vasta kun MOUSEUP
                 #Kuitenkin ilman tätä peli hajoaa kun ei rekisteröi MOUSEUP
-                self.wait_for_mouse_button_up()
+                self.wait_for_mouse_button_up(button)
                 game_situation = self._level.cell_clicked(button, pos)
                 if game_situation in (1, 0):
                     return game_situation
         return 10
 
-    def wait_for_mouse_button_up(self):
+    def wait_for_mouse_button_up(self, button):
         while True:
             event = self._event_queue.wait()
-            if event.type == pygame.MOUSEBUTTONUP and event.__dict__['button'] == 1:
+            if event.type == pygame.MOUSEBUTTONUP and event.__dict__['button'] == button:
                 break
