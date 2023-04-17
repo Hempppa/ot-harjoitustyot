@@ -9,4 +9,5 @@
 |       | 3    | Visuaalisia parannuksia ja vielä enemmän ominaisuuksia |
 | 14.4  | 5    | Pylint ja ohjelman siistiäminen |
 | 15.4  | 3    | testauksen korjaamista ja laajentamista sekä ohjelma lisäyksiä |
-| yht   | 25   | - | 
+| 17.4  | 3    | Custom vaikeus menu toimimaan |
+| yht   | 28   | - | 
