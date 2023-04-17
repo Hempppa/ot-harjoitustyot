@@ -8,6 +8,8 @@
 	DefaultLoop --|> GameLoop
 	Menu "1" -- "1" Clock
 	Menu "1" -- "1" EventQueue
+	Menu ..> Level
+	Menu ..> MapGen
 	StartMenu "1" -- "1" Clock
 	DifficultySelection "1" -- "1" Clock
 	GameLoop "1" -- "1" Clock
@@ -25,8 +27,6 @@
 	}
 	class EventQueue{
 	}
-	class ui {
-	}
 	class MapGen{
 	}
 	class DefaultLoop{
@@ -37,4 +37,6 @@
 	}
 	class Level{
 	}	
+	class Sprites{
+	}
 ```

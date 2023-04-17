@@ -8,12 +8,7 @@
 - Ensimmäiset alustavat testit, vain luokille mapGen ja Level
 - Peliä on siis mahdollista pelaa, se "jäätyy" kolmeksi sekunniksi, häviön tai voiton takia ja sulkee itsensä. Liputus toiminta puuttuu vielä
 
-
-## Viikko 4 
-
-- pääsiäisloma
-
-## Viikko 5
+## Viikko 4
 
 - Peliin liputus mekaniikka
    - Toimii niin kuin pitäisi, eli lippuja vain miinojen verran ja liputettua ruutua ei saa avattua
