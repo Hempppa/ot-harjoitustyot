@@ -11,4 +11,5 @@
 | 15.4  | 3    | testauksen korjaamista ja laajentamista sekä ohjelma lisäyksiä |
 | 17.4  | 3    | Custom vaikeus menu toimimaan |
 | 24.4  | 3    | Testikattavuuden laajentamista ohjelman kasvaessa |
-| yht   | 31   | - | 
+|       | 2    | Dokumentaation korjaamista, repon siistimistä |
+| yht   | 33   | - | 
