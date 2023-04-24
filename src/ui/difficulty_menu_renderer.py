@@ -22,6 +22,9 @@ class DiffRenderer:
             self.option_rect_list.append(pygame.Rect((left, top, width, height)))
             top += 100
 
+    def get_rect_info(self):
+        return self.option_rect_list
+
     def render(self):
         self._display.blit(self.backround_image, self.backround_rect)
 

@@ -10,4 +10,5 @@
 | 14.4  | 5    | Pylint ja ohjelman siistiäminen |
 | 15.4  | 3    | testauksen korjaamista ja laajentamista sekä ohjelma lisäyksiä |
 | 17.4  | 3    | Custom vaikeus menu toimimaan |
-| yht   | 28   | - | 
+| 24.4  | 3    | Testikattavuuden laajentamista ohjelman kasvaessa |
+| yht   | 31   | - | 
