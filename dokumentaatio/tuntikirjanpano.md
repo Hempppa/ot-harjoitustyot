@@ -12,4 +12,4 @@
 | 19.4  | 3    | Custom vaikeus menu toimimaan |
 | 24.4  | 4    | Testikattavuuden laajentamista ohjelman kasvaessa |
 |       | 2    | Dokumentaation korjaamista, repon siistimistä |
-| yht   | 33   | - | 
+| yht   | 34   | - | 
