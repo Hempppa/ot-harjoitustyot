@@ -8,9 +8,13 @@ Sovellus toimii kuin klassinen miinaharavapeli. Pelaajan tarkoitus on siis, osum
 - [Arkkitehtuuri](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/luokkakaavio.md) (Sprites = monet pienet "Sprites" kansion luokat)
 
 ## Komentorivitoiminnot
-Tällä hetkellä alkuun pääsemiseen riittää pelkkä riippuvuuksien asentaminen
+Alkuun pääsee kun ensin asentaa riippuvaisuudet
 ```bash
 poetry install
+```
+ja sen jälkeen vielä alustaa tietokannan 
+```bash
+poetry run invoke build
 ```
 Tämän jälkeen peliä voi pelata komennolla:
 ```bash
