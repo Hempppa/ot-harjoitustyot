@@ -9,9 +9,10 @@
 |       | 3    | Visuaalisia parannuksia ja vielä enemmän ominaisuuksia |
 | 14.4  | 5    | Pylint ja ohjelman siistiäminen |
 | 15.4  | 3    | testauksen korjaamista ja laajentamista sekä ohjelma lisäyksiä |
-| 17.4  | 3    | Custom vaikeus menu toimimaan |
-| 24.4  | 3    | Testikattavuuden laajentamista ohjelman kasvaessa |
+| 19.4  | 3    | Custom vaikeus menu toimimaan |
+| 24.4  | 4    | Testikattavuuden laajentamista ohjelman kasvaessa |
+|       | 2    | Dokumentaation korjaamista, repon siistimistä |
 | 29.4  | 3    | SQLITE muistuttelua |
 | 1.5   | 7    | Leaderboradi/tietokanta lisätty peliin |
 | 2.5.  | 3    | Docstring dokumentaatio |
-| yht   | 44   | - | 
+| yht   | 47   | - | 
