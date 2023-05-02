@@ -2,7 +2,7 @@ import unittest
 import pygame
 
 from levelgeneration.level import Level
-from gamelogic.input_handlers import DefaultLoop, GameLoop, CustomDifficulty, LeaderboardScreen, LeaderboardInput
+from gamelogic.input_handlers import DefaultLoop, GameLoop, CustomDifficulty, LeaderboardInput
 
 
 class StubClock:
@@ -62,9 +62,6 @@ MINEFIELD_2 = [[0, 0, 0],
                [0, 0, 0],
                [0, 0, 0]]
 
-CELL_SIZE = 50
-
-
 class TestDefaultLoop(unittest.TestCase):
     def setUp(self) -> None:
         self.missed_click = (10,10)
@@ -81,7 +78,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -93,7 +90,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -105,7 +102,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -117,7 +114,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -129,7 +126,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -144,7 +141,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -159,7 +156,7 @@ class TestDefaultLoop(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -168,8 +165,8 @@ class TestDefaultLoop(unittest.TestCase):
 
 class TestGameLoop(unittest.TestCase):
     def setUp(self):
-        self.level_1 = Level(MINEFIELD_1, CELL_SIZE)
-        self.level_2 = Level(MINEFIELD_2, CELL_SIZE)
+        self.level_1 = Level(MINEFIELD_1, 50)
+        self.level_2 = Level(MINEFIELD_2, 50)
         self.renderer = StubRenderer([["16", False, pygame.rect.Rect(70, 250, 200, 75)],
                                       ["16", False, pygame.rect.Rect(380, 250, 200, 75)], 
                                       ["40", False, pygame.rect.Rect(70, 450, 400, 75)]])
@@ -181,7 +178,7 @@ class TestGameLoop(unittest.TestCase):
             StubRenderer(None),
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         return_value = game_loop.start()
         self.assertEqual(return_value[0], -1)
@@ -196,7 +193,7 @@ class TestGameLoop(unittest.TestCase):
             StubRenderer(None),
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         return_value = game_loop.start()
         self.assertEqual(return_value[0], 1)
@@ -211,7 +208,7 @@ class TestGameLoop(unittest.TestCase):
             StubRenderer(None),
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         return_value = game_loop.start()
         self.assertEqual(return_value[0], 0)
@@ -235,7 +232,7 @@ class TestGameLoop(unittest.TestCase):
             StubRenderer(None),
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         return_value = game_loop.start()
         self.assertEqual(return_value[0], 1)
@@ -258,7 +255,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -270,7 +267,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -282,7 +279,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -297,7 +294,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -312,7 +309,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -327,7 +324,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -342,7 +339,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -357,7 +354,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -382,7 +379,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -406,7 +403,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -422,7 +419,7 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -436,40 +433,12 @@ class TestCustomDifficulty(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
         self.assertEqual(menu.active, 1)
         self.assertEqual(return_value, [16,16,30])
-
-class TestLeaderboardScreen(unittest.TestCase):
-    def setUp(self) -> None:
-        pass
-
-    def test_can_quit_the_game(self):
-        events = [StubEvent(pygame.QUIT)]
-        menu = LeaderboardScreen(
-            StubRenderer(),
-            StubEventQueue(events),
-            StubClock(),
-            CELL_SIZE
-        )
-        menu.set_renderer(StubRenderer())
-        return_value = menu.start()
-        self.assertEqual(return_value, -1)
-
-    def test_can_return_to_menu(self):
-        events = [StubEvent(pygame.KEYDOWN, pygame.K_ESCAPE)]
-        menu = LeaderboardScreen(
-            StubRenderer(),
-            StubEventQueue(events),
-            StubClock(),
-            CELL_SIZE
-        )
-        menu.set_renderer(StubRenderer())
-        return_value = menu.start()
-        self.assertEqual(return_value, 5)
 
 class TestLeaderboardInput(unittest.TestCase):
     def setUp(self) -> None:
@@ -483,7 +452,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -495,7 +464,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -510,7 +479,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -537,7 +506,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -557,7 +526,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -576,7 +545,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -591,7 +560,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -606,7 +575,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()
@@ -621,7 +590,7 @@ class TestLeaderboardInput(unittest.TestCase):
             self.renderer,
             StubEventQueue(events),
             StubClock(),
-            CELL_SIZE
+            
         )
         menu.set_renderer(self.renderer)
         return_value = menu.start()

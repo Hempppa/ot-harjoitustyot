@@ -21,7 +21,8 @@ class Level:
         """Luodaan ryhmät joihin spriten sijoitetaan
 
         Args:
-            minefield list: MapGenin luoma numerokartta, joka on lista listoja joista jokainen on rivi kentällä 
+            minefield list: MapGenin luoma numerokartta, joka on lista listoja joista 
+                            jokainen on rivi kentällä 
             cell_size int: yhden ruudun koko, vakiona 50
         """
         self.cell_covers = pygame.sprite.Group()
@@ -59,7 +60,8 @@ class Level:
         self.all_cells.add(self.cells_zero, self.cells_numbers, self.cells_nine)
 
     def determine_cell_number(self, cell, x_position, y_position):
-        """Jatkaa liian pitkää funktion toimintaa, päättelee onko tyhjä, miina vai numero. Luo Spriten ja lisää sen ryhmään
+        """Jatkaa liian pitkää funktion toimintaa, päättelee onko tyhjä, miina vai numero.
+        Luo Spriten ja lisää sen ryhmään
 
         Args:
             cell int: ruudun arvo
@@ -110,10 +112,12 @@ class Level:
         return temp
 
     def cell_clicked(self, button, pos):
-        """Pelissä painettu hiiren nappia "button" kohdassa "pos". Tarkistetaan millaiseen ruutuun osuttiin ja mitä sille tehdään
+        """Pelissä painettu hiiren nappia "button" kohdassa "pos". Tarkistetaan millaiseen ruutuun
+        osuttiin ja mitä sille tehdään
 
         Args:
-            button tuple(Bool,Bool,Bool): tuple jossa on kolme booleania edustamassa hiiren kolmea nappia
+            button tuple(Bool,Bool,Bool): tuple jossa on kolme booleania edustamassa 
+                                          hiiren kolmea nappia
             pos tuple(x,y): napinpainalluksen sijainti
 
         Returns:
@@ -160,7 +164,8 @@ class Level:
             cover.flagged = None
 
     def reveal(self, cell):
-        """Poistaa peitteitä ruuduista, myös cascade poisto huomioitu, kun ruutu = 0. Tarkistaa voiton ja häviön varalta.
+        """Poistaa peitteitä ruuduista, myös cascade poisto huomioitu, kun ruutu = 0.
+        Tarkistaa voiton ja häviön varalta.
 
         Args:
             cell: Ruutu jota painettiin

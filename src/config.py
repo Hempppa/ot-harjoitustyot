@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-"""Täällä ladataan tiedostojen nimet .env tiedostosta
-"""
+#Täällä ladataan tiedostojen nimet .env tiedostosta
 
 dirname = os.path.dirname(__file__)
 

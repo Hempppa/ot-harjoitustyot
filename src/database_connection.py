@@ -4,7 +4,7 @@ from config import LEADERBOARD_REPO
 
 dirname = os.path.dirname(__file__)
 
-connection = sqlite3.connect(os.path.join(dirname, "repository", "data", LEADERBOARD_REPO))
+connection = sqlite3.connect(os.path.join(dirname, "repository", LEADERBOARD_REPO))
 connection.row_factory = sqlite3.Row
 
 

@@ -22,7 +22,8 @@ MEDIUM_DIFF = (16,16,30)
 HARD_DIFF = (30,16,70)
 
 class GameFrame():
-    """Sovelluksen runko. Tämä luokka hoitaa siirtymisen sovelluksen näkymien välillä ja tallentaa tietokantaan suorituksia
+    """Sovelluksen runko. Tämä luokka hoitaa siirtymisen sovelluksen näkymien välillä 
+       ja tallentaa tietokantaan suorituksia
 
     Attributes:
         menu_screen: Luokka, joka toteuttaa valikon, jossa on renderin määräämät vaihtoehdot
@@ -37,10 +38,10 @@ class GameFrame():
         pygame.init()
         pygame.display.set_caption("Minesweeper")
         self.display = pygame.display.set_mode((750,750))
-        self.menu_screen = MenuScreen(None, EventQueue(), Clock(), CELL_SIZE)
-        self.game_loop = GameLoop(None, None, EventQueue(), Clock(), CELL_SIZE)
-        self.custom_menu = CustomDifficulty(None, EventQueue(), Clock(), CELL_SIZE)
-        self.leaderboard_input = LeaderboardInput(None, EventQueue(), Clock(), CELL_SIZE)
+        self.menu_screen = MenuScreen(None, EventQueue(), Clock())
+        self.game_loop = GameLoop(None, None, EventQueue(), Clock())
+        self.custom_menu = CustomDifficulty(None, EventQueue(), Clock())
+        self.leaderboard_input = LeaderboardInput(None, EventQueue(), Clock())
 
         connection = database_connection.get_database_connection()
         self.leaderboard_repository = LeaderboardRepository(connection)
@@ -72,7 +73,8 @@ class GameFrame():
         """Pelin alkunäkymä
 
         Returns:
-            selected: palautus on joku int (-1,0,1,2,5). -1 on ruksin painallus, 5 on esc ja 0-2 on valikon vaihtoehdot
+            selected: palautus on joku int (-1,0,1,2,5). 
+                      -1 on ruksin painallus, 5 on esc ja 0-2 on valikon vaihtoehdot
         """
         while True:
             self.menu_screen.set_renderer(MenuRenderer(self.display))
@@ -111,7 +113,9 @@ class GameFrame():
         return selected
 
     def start_game_loop(self, grid_x, grid_y, mines):
-        """selected_difficulties jälkeinen luokka, luodaan haluttu kartta ja siirrytään pelin toteutukseen jos vaikeus saatiin valittua. Jos peli päättyy voittoon, tulos tallennetaan tietokantaan
+        """selected_difficulties jälkeinen luokka, luodaan haluttu kartta ja siirrytään pelin
+        toteutukseen jos vaikeus saatiin valittua. Jos peli päättyy voittoon, tulos tallennetaan
+        tietokantaan
 
         Args:
             grid_x int: leveys 1-38 ruutua
@@ -127,8 +131,10 @@ class GameFrame():
         pygame.display.set_mode((grid_x*CELL_SIZE, grid_y*CELL_SIZE))
         renderer = LevelRenderer(self.display, level)
         self.game_loop.set_renderer(renderer)
-        
+
         end_condition = self.game_loop.start()
+        if end_condition[0] == -1:
+            return -1
         if end_condition[0] == 0:
             pygame.time.wait(3000)
         elif end_condition[0] == 1:
@@ -150,7 +156,8 @@ class GameFrame():
             time float: peliin kulunut aika
 
         Returns:
-            int: mahdollisia (-1,0,1,2,3,5), -1 poistutaan pelistä, 5 poistutaan alkunäkymään, 0-3 tallennettiin tulos
+            mahdollisia (-1,0,1,2,3,5):
+                -1 poistutaan pelistä, 5 poistutaan alkunäkymään, 0-3 tallennettiin tulos
         """
         self.leaderboard_input.set_renderer(LBInputRenderer(self.display, time))
         username = self.leaderboard_input.start()
@@ -168,7 +175,8 @@ class GameFrame():
         return diff
 
     def enter_leaderboard(self):
-        """Alkunäkymästä voi myös siirtyä katsomaan tulostaulua, ensin valitaan kuitenkin mitkä tulokset näytetään
+        """Alkunäkymästä voi myös siirtyä katsomaan tulostaulua,
+        ensin valitaan kuitenkin mitkä tulokset näytetään
 
         Returns:
             int: -1 tai 5, -1 poistutaan pelistä, 5 palataan alkunäkymään

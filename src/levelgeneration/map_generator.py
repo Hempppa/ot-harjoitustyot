@@ -2,13 +2,15 @@ import random
 
 
 class MapGen():
-    """Generoi "kartan" annetuilla arvoilla, kartta on lista, listoista joista jokainen on rivi ja sisältää ruutuja edustavia numeroita
+    """Generoi "kartan" annetuilla arvoilla, kartta on lista, listoista joista jokainen on rivi
+    ja sisältää ruutuja edustavia numeroita
 
     Attributes:
         field: pelin kartta (sitä vastaava numeroita sisältävä listojen lista)
     """
     def __init__(self, width=16, height=16, mines=40):
-        """Luo kentän annetuista arvoista. Luodaan oikea määrä miinoja, sekoitetaan ne, jaetaan kartta riveihin ja lasketaan muut numerot
+        """Luo kentän annetuista arvoista. Luodaan oikea määrä miinoja, sekoitetaan ne,
+        jaetaan kartta riveihin ja lasketaan muut numerot
 
         Args:
             width (int, optional): kentän leveys. Defaults to 16.

@@ -16,7 +16,7 @@ class TestLeaderboardRepository(unittest.TestCase):
     def test_entries_are_sorted(self):
         self.leaderboard_repository.add_score("name", 0, 2)
         self.leaderboard_repository.add_score("name", 0, 1)
-        self.assertEqual(self.leaderboard_repository.get_scores("0")[0], ("name", "0", "1"))
+        self.assertEqual(self.leaderboard_repository.get_scores("0")[0], ("name", 0, 1))
 
     def test_returns_only_ten_or_fewer(self):
         for i in range(20):

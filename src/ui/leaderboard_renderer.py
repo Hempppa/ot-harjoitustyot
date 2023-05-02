@@ -66,10 +66,10 @@ class LBRenderer:
             username_text = self.fonts[1].render(score[0], True, (255, 255, 255))
             self._display.blit(username_text, (self.option_rect[0]+10, self.option_rect[1]+(i+1)*(40)))
 
-            diff_text = self.fonts[1].render(score[1], True, (255, 255, 255))
+            diff_text = self.fonts[1].render(str(score[1]), True, (255, 255, 255))
             self._display.blit(diff_text, (self.option_rect[0]+230, self.option_rect[1]+(i+1)*(40)))
         
-            time_text = self.fonts[1].render(f"{float(score[2]):.2f}", True, (255, 255, 255))
+            time_text = self.fonts[1].render(f"{score[2]:.2f}", True, (255, 255, 255))
             self._display.blit(time_text, (self.option_rect[0]+430, self.option_rect[1]+(i+1)*(40)))
 
         pygame.display.update()

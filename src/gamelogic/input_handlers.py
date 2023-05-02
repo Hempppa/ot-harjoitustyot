@@ -2,7 +2,8 @@ import time
 import pygame
 
 class DefaultLoop:
-    """Pohja kaikille input_handlereille. Lukee käyttäjän syöttöjä. Valikko, jossa on rendererin määräämä lukema vaihtoehtoisia kenttiä
+    """Pohja kaikille input_handlereille. Lukee käyttäjän syöttöjä. Valikko, jossa on rendererin
+    määräämä lukema vaihtoehtoisia kenttiä
 
     Attributes:
         renderer: rendereri joka piirtää näkymän
@@ -33,10 +34,12 @@ class DefaultLoop:
         self._rect_list = renderer.get_rect_info()
 
     def start(self):
-        """Looppi jolla peli pyörii. 60 kertaa sekunnissa käsitellään tapahtumat ja piirretään näkymä. Jos tapahtumakäsittelyssä on muu kuin -1 - 5, suoritus jatkuu
+        """Looppi jolla peli pyörii. Joka kierros käsitellään tapahtumat ja piirretään näkymä.
+        Jos tapahtumakäsittelyssä on muu kuin -1 - 5, suoritus jatkuu
 
         Returns:
-            int: -1 - 5, -1 pelistä poistuttiin, 5 palataan edelliseen näkymään, 0-4 valittiin jotain
+            int: (-1, 0, 1, 2, 3, 4, 5)
+            -1 pelistä poistuttiin, 5 palataan edelliseen näkymään, 0-4 valittiin jotain
         """
         while True:
             events = self._handle_events()
@@ -46,7 +49,8 @@ class DefaultLoop:
             self._clock.tick(60)
 
     def _handle_events(self):
-        """Hakee event_queuen tapahtumat ja suorittaa perustoiminnallisuuden. Pelistä voi poistua ruksista, palata edelliseen näkymään tai valita vaihtoehto kentistä joku
+        """Hakee event_queuen tapahtumat ja suorittaa perustoiminnallisuuden.
+        Pelistä voi poistua ruksista, palata edelliseen näkymään tai valita vaihtoehto kentistä
 
         Returns:
             int: välillä -1--5, jos hyväksytty syöte, 10 jos suoritusta jatketaan
@@ -83,7 +87,6 @@ class DefaultLoop:
 class MenuScreen(DefaultLoop):
     """Toimii hetkellä täysin kuin DefaultLoop 
     """
-    pass
 
 class CustomDifficulty(DefaultLoop):
     """Valikko, jossa on painettavien vaihtoehtojen sijaan kenttiä, joihin voi syöttää numeroita.
@@ -111,7 +114,8 @@ class CustomDifficulty(DefaultLoop):
             self._clock.tick(60)
 
     def _handle_events(self):
-        """Erona DefaultLoopiin, kentän painaminen aktivoi sen, enterillä jatketaan, jos jokin kenttä on aktiivisena siihen voi kirjoittaa
+        """Erona DefaultLoopiin, kentän painaminen aktivoi sen, enterillä jatketaan,
+        jos jokin kenttä on aktiivisena siihen voi kirjoittaa
 
         Returns:
             events: -1, 5, 10 tai lista intejä muodossa [x,y,mines]
@@ -197,7 +201,8 @@ class CustomDifficulty(DefaultLoop):
         return self.active
 
 class LeaderboardInput(CustomDifficulty):
-    """Perii CustomDifficultyn, toimii lähes samoin, mutta syötekenttiä on yksi ja se ottaa myös tekstiä
+    """Perii CustomDifficultyn, toimii lähes samoin,
+    mutta syötekenttiä on yksi ja se ottaa myös tekstiä
     """
     def start(self):
         """mahdollistaa myös merkkijonon palauttamisen
@@ -258,7 +263,8 @@ class GameLoop(DefaultLoop):
         super().__init__(renderer, event_queue, clock)
 
     def set_renderer(self, renderer):
-        """Samalla kun asetetaan rendereri varman päälle, niin otetaan myös rendererin leveli käyttöön
+        """Samalla kun asetetaan rendereri varman päälle,
+        niin otetaan myös rendererin leveli käyttöön
 
         Args:
             renderer: rendereri (ja sen leveli) jota käytetään
@@ -267,7 +273,8 @@ class GameLoop(DefaultLoop):
         self._level = self._renderer.get_level()
 
     def start(self):
-        """DefaultLoop, mutta vahinkojen estämiseksi ei voida palata edelliseen näkymään, myöskin otetaan aikaa joka pelaamiseen kestää
+        """DefaultLoop, mutta vahinkojen estämiseksi ei voida palata edelliseen näkymään,
+        myöskin otetaan aikaa joka pelaamiseen kestää
 
         Returns:
             int: -1, 0 tai 1: -1 pelistä poistuttiin, 0 peli hävittiin, 1 peli voitettiin 

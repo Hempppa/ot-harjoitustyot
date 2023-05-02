@@ -14,7 +14,8 @@ class CellCover(pygame.sprite.Sprite):
         flagged: pitää kirjaa onko peite liputettu
     """
     def __init__(self, _x=0, _y=0):
-        """Konstruktori luo Spriten kohtaan (x,y) ja asettaa liputtoman tilan ruudulle. Kuva ladataan "assets" kansiosta config.py määritellyllä COVER_IMAGE nimellä
+        """Konstruktori luo Spriten kohtaan (x,y) ja asettaa liputtoman tilan ruudulle.
+        Kuva ladataan "assets" kansiosta config.py määritellyllä COVER_IMAGE nimellä
 
         Args:
             _x (int, optional): peitteen leveys sijainti. Defaults to 0.
@@ -28,7 +29,8 @@ class CellCover(pygame.sprite.Sprite):
         self.flagged = None
 
 class CellNumbered(pygame.sprite.Sprite):
-    """Sama kuin peite, mutta numerot sinne peitteen alle, erona ainoastaan lippujen sijaan pidetään kirjaa onko peitettynä ja kuva on eri
+    """Sama kuin peite, mutta numerot sinne peitteen alle, erona ainoastaan lippujen sijaan pidetään
+    kirjaa onko peitettynä ja kuva on eri
 
     Attributes:
         covered: pitää kirjaa onko ruutu peitetty
