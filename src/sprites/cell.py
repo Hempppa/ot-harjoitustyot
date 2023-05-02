@@ -1,136 +1,96 @@
 import os
 import pygame
+from config import TILE_0, TILE_1, TILE_2, TILE_3, TILE_4, TILE_5, TILE_6, TILE_7, TILE_8
+from config import COVER_IMAGE, MINE_IMAGE
 
 dirname = os.path.dirname(__file__)
 
-class Cell(pygame.sprite.Sprite):
+class CellCover(pygame.sprite.Sprite):
+    """pygame.sprite.Sprite olio ruutujen peitteille
+
+    Attributes:
+        image: kuvatiedosto, jolla sprite piirretään
+        rect: Spriten sijainti ja koko
+        flagged: pitää kirjaa onko peite liputettu
+    """
+    def __init__(self, _x=0, _y=0):
+        """Konstruktori luo Spriten kohtaan (x,y) ja asettaa liputtoman tilan ruudulle. Kuva ladataan "assets" kansiosta config.py määritellyllä COVER_IMAGE nimellä
+
+        Args:
+            _x (int, optional): peitteen leveys sijainti. Defaults to 0.
+            _y (int, optional): peitteen korkeus sijainti. Defaults to 0.
+        """
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", COVER_IMAGE))
+        super().__init__()
+        self.rect = self.image.get_rect()
+        self.rect.x = _x
+        self.rect.y = _y
+        self.flagged = None
+
+class CellNumbered(pygame.sprite.Sprite):
+    """Sama kuin peite, mutta numerot sinne peitteen alle, erona ainoastaan lippujen sijaan pidetään kirjaa onko peitettynä ja kuva on eri
+
+    Attributes:
+        covered: pitää kirjaa onko ruutu peitetty
+    """
     def __init__(self, _x=0, _y=0):
         super().__init__()
         self.rect = self.image.get_rect()
         self.rect.x = _x
         self.rect.y = _y
-
-class CellCover(pygame.sprite.Sprite):
-    def __init__(self, _x=0, _y=0):
-        self.image = pygame.image.load(
-            os.path.join(dirname, "..", "assets", "tile.png"))
-        super().__init__()
-        self.rect = self.image.get_rect()
-        self.rect.x = _x
-        self.rect.y =_y
-        self.flagged = None
-
-
-class CellZero(pygame.sprite.Sprite):
-    def __init__(self,_x=0, _y=0):
-        super().__init__()
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile0.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
         self.covered = True
 
+class CellZero(CellNumbered):
+    """Kaikki seuraavat perii CellNumbered luokan ja ainoana erona on kuva joka ladataan
 
-class CellOne(pygame.sprite.Sprite):
+    Attributes:
+        image: kuvatiedosto, joka spritelle ladataan
+    """
     def __init__(self,_x=0, _y=0):
-        super().__init__()
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile1.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_0))
+        super().__init__(_x, _y)
 
-
-class CellTwo(pygame.sprite.Sprite):
+class CellOne(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile2.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_1))
+        super().__init__(_x, _y)
 
-
-class CellThree(pygame.sprite.Sprite):
+class CellTwo(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile3.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_2))
+        super().__init__(_x, _y)
 
-
-class CellFour(pygame.sprite.Sprite):
+class CellThree(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile4.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_3))
+        super().__init__(_x, _y)
 
-
-class CellFive(pygame.sprite.Sprite):
+class CellFour(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_4))
+        super().__init__(_x, _y)
 
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile5.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
-
-
-class CellSix(pygame.sprite.Sprite):
+class CellFive(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_5))
+        super().__init__(_x, _y)
 
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile6.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
-
-
-class CellSeven(pygame.sprite.Sprite):
+class CellSix(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_6))
+        super().__init__(_x, _y)
 
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile7.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
-
-
-class CellEight(pygame.sprite.Sprite):
+class CellSeven(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_7))
+        super().__init__(_x, _y)
 
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile8.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
-
-
-class CellNine(pygame.sprite.Sprite):
+class CellEight(CellNumbered):
     def __init__(self,_x=0, _y=0):
-        super().__init__()
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", TILE_8))
+        super().__init__(_x, _y)
 
-        self.image = pygame.image.load(os.path.join(
-            dirname, "..", "assets", "tile9.png"))
-        self.rect = self.image.get_rect()
-        self.rect.x =_x
-        self.rect.y =_y
-        self.covered = True
+class CellNine(CellNumbered):
+    def __init__(self,_x=0, _y=0):
+        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", MINE_IMAGE))
+        super().__init__(_x, _y)

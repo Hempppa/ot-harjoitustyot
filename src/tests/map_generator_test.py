@@ -1,5 +1,5 @@
 import unittest
-from map_generator import MapGen
+from levelgeneration.map_generator import MapGen
 
 
 class TestmapGenerator(unittest.TestCase):

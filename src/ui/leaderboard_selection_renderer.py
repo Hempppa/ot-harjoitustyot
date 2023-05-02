@@ -2,9 +2,8 @@ import os
 import pygame
 from config import BACKGROUND_IMAGE
 
-class DiffRenderer:
-    """Piirtää "default difficulties" näkymän. Valikossa on kolme vaihtoehtoa
-
+class LBSelectionRenderer:
+    """Piirtää "leaderboard" näkymän, tästä voi valita minkä vaikeustason tuloksia halutaan nähdä
     Attributes:
         _display: ikkuna johon näkymä piirretään
         fonts: lista pygame.font.Font():eista joita näkymä käyttää
@@ -14,11 +13,6 @@ class DiffRenderer:
         options: vaihtoehtojen lkm
     """
     def __init__(self, display):
-        """Alustaa tiedot, kuten taustakuvan, fontteja, vaihtoehtokentät, jne.
-
-        Args:
-            display: ikkuna johon näkymä piirretään
-        """
         self._display = display
         if pygame.display.get_window_size() != (750,750):
             pygame.display.set_mode((750,750))
@@ -29,7 +23,7 @@ class DiffRenderer:
             os.path.join(dirname, "..", "assets", BACKGROUND_IMAGE))
         self.backround_rect = self.backround_image.get_rect()
         self.option_rect_list = []
-        self.options = 3
+        self.options = 4
         left = self.option_rect[0]
         top = self.option_rect[1]
         width = self.option_rect[2]
@@ -39,15 +33,15 @@ class DiffRenderer:
             top += 100
 
     def get_rect_info(self):
-        """Palauttaa listan vaihtoehto kenttien sijanneista
+        """Palautaa listan vaihtoehtokenttiä
 
         Returns:
-            list: lista pygame.Rect() olioita
+            list: kenttiä kuvaavia pygame.Rect() olioita
         """
         return self.option_rect_list
 
     def render(self):
-        """Piirtää varsinaisen näkymän
+        """Piirtää näkymän
         """
         self._display.blit(self.backround_image, self.backround_rect)
 
@@ -58,15 +52,19 @@ class DiffRenderer:
         self._display.blit(title_text, (60, 60))
 
         pygame.draw.rect(self._display, (100, 100, 100), self.option_rect_list[0])
-        easy_text = self.fonts[1].render("Easy:       9x9/9", True, (255, 255, 255))
-        self._display.blit(easy_text, (self.option_rect[0] +10, self.option_rect_list[0].y+10))
+        diff_text = self.fonts[1].render("All Scores", True, (255, 255, 255))
+        self._display.blit(diff_text, (self.option_rect[0] +10, self.option_rect_list[0].y+10))
 
-        pygame.draw.rect(self._display, (100, 100, 100), self.option_rect_list[1])
-        medium_text = self.fonts[1].render("Medium:  16x16/30", True, (255, 255, 255))
-        self._display.blit(medium_text, (self.option_rect[0] +10, self.option_rect_list[1].y+10))
+        pygame.draw.rect(self._display, (100, 100, 100),self.option_rect_list[1])
+        custom_text = self.fonts[1].render("Easy Scores", True, (255, 255, 255))
+        self._display.blit(custom_text, (self.option_rect[0] +10, self.option_rect_list[1].y+10))
 
-        pygame.draw.rect(self._display, (100, 100, 100), self.option_rect_list[2])
-        hard_text = self.fonts[1].render("Hard:       30x16/70", True, (255, 255, 255))
-        self._display.blit(hard_text, (self.option_rect[0] +10, self.option_rect_list[2].y+10))
+        pygame.draw.rect(self._display, (100, 100, 100),self.option_rect_list[2])
+        leaderboard_text = self.fonts[1].render("Medium Scores", True, (255, 255, 255))
+        self._display.blit(leaderboard_text, (self.option_rect[0]+10, self.option_rect_list[2].y+10))
+
+        pygame.draw.rect(self._display, (100, 100, 100),self.option_rect_list[3])
+        leaderboard_text = self.fonts[1].render("Hard Scores", True, (255, 255, 255))
+        self._display.blit(leaderboard_text, (self.option_rect[0]+10, self.option_rect_list[3].y+10))
 
         pygame.display.update()

@@ -1,8 +1,8 @@
 import unittest
 import pygame
 
-from level import Level
-from input_handlers import DefaultLoop, GameLoop
+from levelgeneration.level import Level
+from gamelogic.input_handlers import DefaultLoop, GameLoop, CustomDifficulty, LeaderboardScreen, LeaderboardInput
 
 
 class StubClock:
@@ -14,6 +14,12 @@ class StubClock:
 
 class StubEvent:
     def __init__(self, event_type, key=None, pos=None):
+        if event_type == pygame.KEYDOWN:
+            if key == pygame.K_1:
+                self.unicode = "1"
+            elif key == pygame.K_a:
+                self.unicode = "a"
+        self.key = key
         self.button = key
         self.pos = pos
         self.type = event_type
@@ -34,7 +40,7 @@ class StubEventQueue:
 
 
 class StubRenderer:
-    def __init__(self, rects):
+    def __init__(self, rects=None):
         self.rect_list = rects
 
     def render(self):
@@ -80,6 +86,18 @@ class TestDefaultLoop(unittest.TestCase):
         menu.set_renderer(self.renderer)
         return_value = menu.start()
         self.assertEqual(return_value, -1)
+
+    def test_can_return_to_menu(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_ESCAPE)]
+        menu = DefaultLoop(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, 5)
     
     def test_first_option_works(self):
         events = [StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_1_location)]
@@ -166,7 +184,7 @@ class TestGameLoop(unittest.TestCase):
             CELL_SIZE
         )
         return_value = game_loop.start()
-        self.assertEqual(return_value, -1)
+        self.assertEqual(return_value[0], -1)
 
     def test_can_complete_empty_level(self):
         events = [
@@ -181,7 +199,7 @@ class TestGameLoop(unittest.TestCase):
             CELL_SIZE
         )
         return_value = game_loop.start()
-        self.assertEqual(return_value, 1)
+        self.assertEqual(return_value[0], 1)
 
     def test_can_fail_level(self):
         events = [
@@ -196,7 +214,7 @@ class TestGameLoop(unittest.TestCase):
             CELL_SIZE
         )
         return_value = game_loop.start()
-        self.assertEqual(return_value, 0)
+        self.assertEqual(return_value[0], 0)
 
     def test_flagged_cells_work(self):
         events = [
@@ -220,4 +238,392 @@ class TestGameLoop(unittest.TestCase):
             CELL_SIZE
         )
         return_value = game_loop.start()
-        self.assertEqual(return_value, 1)
+        self.assertEqual(return_value[0], 1)
+
+
+
+class TestCustomDifficulty(unittest.TestCase):
+    def setUp(self) -> None:
+        self.missed_click = (10,10)
+        self.option_1_location = (80, 260)
+        self.option_2_location = (390, 260)
+        self.option_3_location = (80, 460)
+        self.renderer = StubRenderer([["16", False, pygame.rect.Rect(70, 250, 200, 75)],
+                                      ["16", False, pygame.rect.Rect(380, 250, 200, 75)], 
+                                      ["30", False, pygame.rect.Rect(70, 450, 400, 75)]])
+
+    def test_can_quit_the_game(self):
+        events = [StubEvent(pygame.QUIT)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, -1)
+
+    def test_can_return_to_menu(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_ESCAPE)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, 5)
+
+    def test_can_enter_with_default_values(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 0)
+        self.assertEqual(return_value, [16,16,30])
+    
+    def test_first_option_works(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_1_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 1)
+        self.assertEqual(return_value, [1,16,16])
+
+    def test_second_option_works(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_2_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 2)
+        self.assertEqual(return_value, [16,1,16])
+
+    def test_third_option_works(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_3_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 3)
+        self.assertEqual(return_value, [16,16,3])
+
+    def test_missed_click_does_not_affect(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.missed_click)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 0)
+        self.assertEqual(return_value, [16,16,30])
+
+    def test_wrong_button_does_not_affect(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 2, self.option_2_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 0)
+        self.assertEqual(return_value, [16,16,30])
+
+    def test_cannot_go_lower_than_one(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_3_location),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_2_location),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_1_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, [1,1,1])
+
+    def test_cannot_over_limits(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_3_location),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_2_location),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_1_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, [38,18,684])
+
+    def test_cannot_have_more_mines_than_cells(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.KEYDOWN, pygame.K_1),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_3_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, [16,16,(16*16)])
+
+    def test_cannot_input_non_integer(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_1_location)]
+        menu = CustomDifficulty(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 1)
+        self.assertEqual(return_value, [16,16,30])
+
+class TestLeaderboardScreen(unittest.TestCase):
+    def setUp(self) -> None:
+        pass
+
+    def test_can_quit_the_game(self):
+        events = [StubEvent(pygame.QUIT)]
+        menu = LeaderboardScreen(
+            StubRenderer(),
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(StubRenderer())
+        return_value = menu.start()
+        self.assertEqual(return_value, -1)
+
+    def test_can_return_to_menu(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_ESCAPE)]
+        menu = LeaderboardScreen(
+            StubRenderer(),
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(StubRenderer())
+        return_value = menu.start()
+        self.assertEqual(return_value, 5)
+
+class TestLeaderboardInput(unittest.TestCase):
+    def setUp(self) -> None:
+        self.missed_click = (10,10)
+        self.option_location = (80, 460)
+        self.renderer = StubRenderer([["", False, pygame.Rect(70, 450, 400, 75)]])
+
+    def test_can_quit_the_game(self):
+        events = [StubEvent(pygame.QUIT)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, -1)
+
+    def test_can_enter_with_default_values(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 0)
+        self.assertEqual(return_value, "")
+    
+    def test_text_option_works(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_location)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 1)
+        self.assertEqual(return_value, "a")
+
+    def test_cannot_input_longer_than_limit(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_location)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, "aaaaaaaa")
+
+    def test_can_remove_letters(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_BACKSPACE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_location)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, "aaa")
+
+    def test_can_return_to_not_save_score(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_ESCAPE),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_location)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(return_value, 5)
+
+    def test_cannot_add_unless_activated(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.option_location),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 1)
+        self.assertEqual(return_value, "a")
+
+    def test_misclick_does_not_affect(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 1, self.missed_click)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 0)
+        self.assertEqual(return_value, "")
+
+    def test_wrong_button_doent_activate(self):
+        events = [StubEvent(pygame.KEYDOWN, pygame.K_RETURN),
+                  StubEvent(pygame.KEYDOWN, pygame.K_a),
+                  StubEvent(pygame.MOUSEBUTTONDOWN, 2, self.option_location)]
+        menu = LeaderboardInput(
+            self.renderer,
+            StubEventQueue(events),
+            StubClock(),
+            CELL_SIZE
+        )
+        menu.set_renderer(self.renderer)
+        return_value = menu.start()
+        self.assertEqual(menu.active, 0)
+        self.assertEqual(return_value, "")

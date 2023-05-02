@@ -11,4 +11,7 @@
 | 15.4  | 3    | testauksen korjaamista ja laajentamista sekä ohjelma lisäyksiä |
 | 17.4  | 3    | Custom vaikeus menu toimimaan |
 | 24.4  | 3    | Testikattavuuden laajentamista ohjelman kasvaessa |
-| yht   | 31   | - | 
+| 29.4  | 3    | SQLITE muistuttelua |
+| 1.5   | 7    | Leaderboradi/tietokanta lisätty peliin |
+| 2.5.  | 3    | Docstring dokumentaatio |
+| yht   | 44   | - | 

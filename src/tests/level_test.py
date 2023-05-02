@@ -1,22 +1,27 @@
-from map_generator import MapGen
-from level import Level
+from levelgeneration.map_generator import MapGen
+from levelgeneration.level import Level
 import unittest
+
+MINEFIELD_1 = MapGen(9, 9, 9)
+MINEFIELD_2 = [[1, 1, 1],
+               [1, 9, 1],
+               [1, 1, 1]]
+MINEFIELD_3 = [[0, 0, 0],
+               [0, 0, 0],
+               [0, 0, 0]]
+MINEFIELD_4 = [[9, 9, 9, 9, 9, 9, 2, 1, 1],
+               [9, 8, 9, 7, 6, 5, 4, 9, 2],
+               [9, 9, 9, 9, 9, 9, 9, 3, 9]]
 
 class TestLevel(unittest.TestCase):
     def setUp(self):
-        self.mineField1 = MapGen(20, 20, 200)
-        self.mineField2 = [[1, 1, 1],
-                           [1, 9, 1],
-                           [1, 1, 1]]
-        self.mineField3 = [[0, 0, 0],
-                           [0, 0, 0],
-                           [0, 0, 0]]
-        self.sprite_handler1 = Level(self.mineField1.field, 50)
-        self.sprite_handler2 = Level(self.mineField2, 50)
-        self.sprite_handler3 = Level(self.mineField3, 50)
+        self.sprite_handler1 = Level(MINEFIELD_1.field, 50)
+        self.sprite_handler2 = Level(MINEFIELD_2, 50)
+        self.sprite_handler3 = Level(MINEFIELD_3, 50)
+        self.sprite_handler4 = Level(MINEFIELD_4, 50)
 
     def test_correct_amount_of_cell_sprites(self):
-        self.assertEqual(len(self.sprite_handler1.all_cells), 20*20)
+        self.assertEqual(len(self.sprite_handler1.all_cells), 9*9)
 
     def test_correct_sprite_types(self):
         self.assertEqual(len(self.sprite_handler2.cells_numbers), 8)
