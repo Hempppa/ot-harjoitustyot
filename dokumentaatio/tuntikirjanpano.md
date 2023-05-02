@@ -15,4 +15,5 @@
 | 29.4  | 3    | SQLITE muistuttelua |
 | 1.5   | 7    | Leaderboardi/tietokanta lisätty peliin |
 | 2.5.  | 3    | Docstring dokumentaatio |
-| yht   | 47   | - | 
+|       | 2    | Muu dokumentaatio, arkkitehtuuri, kayttoohje, changelog |
+| yht   | 49   | - | 
