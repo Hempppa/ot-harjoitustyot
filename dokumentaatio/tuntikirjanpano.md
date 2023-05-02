@@ -12,4 +12,7 @@
 | 19.4  | 3    | Custom vaikeus menu toimimaan |
 | 24.4  | 4    | Testikattavuuden laajentamista ohjelman kasvaessa |
 |       | 2    | Dokumentaation korjaamista, repon siistimistä |
-| yht   | 34   | - | 
+| 29.4  | 3    | SQLITE muistuttelua |
+| 1.5   | 7    | Leaderboardi/tietokanta lisätty peliin |
+| 2.5   | 3    | Docstring dokumentaatio |
+| yht   | 47   | - | 
