@@ -27,17 +27,17 @@
 
 ### Tulostaulu
 
- - Tietokanta, johon tallennettaisiin peliin kestänyt aika
+ - Tietokanta, johon tallennettaisiin peliin kestänyt aika - **TEHTY**
    - Vain voitettujen pelien ajat tallennetaan
- - Vanhojen arcade pelikoneiden tyyliin, pelin jälkeen käyttäjä antaa nimen joka ilmestyy ajan vierelle
- - Tulostaulua pääsee tarkastelemaan jokaisen pelin jälkeen ja alkunäkymästä
+ - Vanhojen arcade pelikoneiden tyyliin, pelin jälkeen käyttäjä antaa nimen joka ilmestyy ajan vierelle - **TEHTY**
+ - Tulostaulua pääsee tarkastelemaan jokaisen pelin jälkeen ja alkunäkymästä - **TEHTY**
    - Pelin jälkeen kerrotaan myös käyttäjän sija listalla
 
 ### Muita vaikeustasoja
 
  - Muita "Pre-settejä" eli valmiiksi valittuja vaikeuksia - **TEHTY**
    - Eli vaihtelua miinojen määrään ja kentän kokoon
-   - Nämä voi myös tallentaa tulostauluun, joista jokainen vaikeustaso tallennetaan erikseen - puuttuu vielä
+   - Nämä voi myös tallentaa tulostauluun, joista jokainen vaikeustaso tallennetaan erikseen
 
  - Oma "Custom" pelimuoto - **TEHTY**
    - Käyttäjä saa itse syöttää sekä kentän koon, että miinojen määrän

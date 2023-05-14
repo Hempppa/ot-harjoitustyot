@@ -15,6 +15,7 @@
 | 29.4  | 3    | SQLITE muistuttelua |
 | 1.5   | 7    | Leaderboardi/tietokanta lisätty peliin |
 | 2.5   | 3    | Docstring dokumentaatio |
+|       | 2    | Muu dokumentaatio, arkkitehtuuri, kayttoohje, changelog |
 | 12.5  | 3    | rendererien siistimistä |
 | 13.5  | 5    | index.py ja testaus viimeiseen asti |
-| yht   | 55   | - | 
+| yht   | 57   | - |
