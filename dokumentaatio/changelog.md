@@ -57,3 +57,16 @@
    - Repository kansiossa on LeaderboardRepository ja tietokanta, johon tallennetaan
    - LeaderboardInput voittoruutuna, perii CustomDifficultyn ja lukee käyttäjänimen tallennettavaksi
    - Uusia näkymiä vastaavat rendererit ui kansioon
+
+## Viikko 6
+- Koodin siisteys
+  - index.py importtaa ja injektoi kaikki luokat GameFrameen
+  - Rendererit yhdistetty kaikki samaan tiedostoon, myös vähemmän koodia kun ne perivät toisiaan
+- Dokumentaatio
+  - arkkitehtuuri loppuun
+  - testidokumentaatio
+  - changelog ja vaatimusmäärittely päivitys
+- Testaus
+  - GameFrame testauksella testikattavuus yli 90%
+  - myös TestWholeGame testaa integraatiotasolla
+- Viimeinen julkaisu
