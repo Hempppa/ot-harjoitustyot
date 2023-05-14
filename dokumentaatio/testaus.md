@@ -6,7 +6,11 @@ Ohjelmaa on testattu sekä automatisoiduin yksikkö- ja integraatiotestein unitt
 
 ### Sovelluslogiikka
 
-src/gamelogic/input-handlers.py tiedoston luokkien (MenuScreen/DefaultLoop, GameLoop, CustomDifficulty, LeaderboardInput) testaamisesta vastaa vastaavat Test* alkuiset luokat src/tests/input-handlers-test.py tiedostossa. Testit suoritettiin injektoimalla Clock, EvenQueue ja Renderer() olioiden sijaan Stub- versiot, jotka hoitivat luokkien toiminnallisuudet, kuitenkin siten että voidaan hallitusti syöttää tapahtumia ja ei piirretä mitään näkymää. GameFrame luokkaa testaa TestGameFrame luokka samalla periaatteella, injektoidiin Stub- versioita oikeista luokista ja pidettiin kirjaa näkymien vaihdoista StubRenderereillä, sekä tallennettiin StubRepolla muistiin, tietokannan pysyväistallennuksen sijaan. Viimeisenä TestWholeGame on sama testi kuin TestGameFrame, mutta input-handlerit sekä repository luokka ovat oikeita. Tässä käytettiin samankaltaisia Stub- luokkia kuin itse input-handlereiden testaamisessa.
+Luokkien MenuScreen/DefaultLoop, GameLoop, CustomDifficulty ja LeaderboardInput testaamisesta vastaa vastaavat Test* alkuiset luokat src/tests/input-handlers-test.py tiedostossa. Testit suoritettiin injektoimalla Clock, EvenQueue ja Renderer() olioiden sijaan Stub- versiot, jotka hoitivat luokkien toiminnallisuudet, kuitenkin siten että voidaan hallitusti syöttää tapahtumia ja ei piirretä mitään näkymää.
+
+GameFrame luokkaa testaa TestGameFrame luokka samalla periaatteella, injektoidiin Stub- versioita oikeista luokista ja pidettiin kirjaa näkymien vaihdoista StubRenderereillä, sekä tallennettiin StubRepolla muistiin, tietokannan pysyväistallennuksen sijaan. 
+
+Viimeisenä TestWholeGame on sama testi kuin TestGameFrame, mutta input-handlerit ovat oikeita. Tässä käytettiin samankaltaisia Stub- luokkia kuin itse input-handlereiden testaamisessa.
 
 ### Repositorio-luokka
 
@@ -15,7 +19,12 @@ Repositorio-luokka `LeaderboardRepository` testataan ainoastaan testeissä käyt
 ### Testauskattavuus
 
 Testikattavuus, riippumatta mitä tiedostoja lasketaan mukaan, on yli 90%. Jos otetaan mukaan vain merkittävät tiedostot (leaderboard-repository.py, input-handlers.py, map-generator.py, level.py ja main.py) testikattavuus on 97% 
+![vain](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Screenshot%20from%202023-05-14%2023-46-43.png)
 
+Vaikka kaikki luokat otetaan mukaan, niin testikattavuus jää silti 94%. Pääosin small-classes.py turhien testien takia.
+
+
+![kaikki](https://github.com/Hempppa/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Screenshot%20from%202023-05-14%2023-46-57.png)
 ---
 
 Testikattavuuden ulkopuolelle jäivät jotkut vaikeustaso valinnat ja joidenkin spritejen käyttö.
