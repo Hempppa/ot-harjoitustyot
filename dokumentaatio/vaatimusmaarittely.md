@@ -4,7 +4,7 @@
 
  Klassinen miinaharava peli. Pelissä on kolme valmiiksi määrättyä vaikeustasoa ja mahdollisuus luoda haluamansa mukainen pelikenttä. Tulostauluun tallennetaan kymmenen parasta aikaa jokaista neljää vaikeustasoa kohti (kolme valmista ja itse luodut).
 
-## Perusversion tarjoama toiminnallisuus
+## Pelin tarjoama toiminnallisuus
 
 ### Alkunäkymä
 
@@ -29,6 +29,7 @@
   - "Width" ja "Height" määräävät kentän koon ja "Mines" miinojen määrän
   - Lukuja rajoitetaan ilmoitettujen rajojen sisälle, esim. "Height (1-18)"
     - Lisäksi miinoja on korkeintaan kentän koon verran
+  - Pelin tulokset tallennetaan tauluun "Custom" vaikeustason alle tai jonkun "Default Difficulties" alle, jos pelin asettelu sattuu olemaan sama
 
 ### Pelinäkymä
 
