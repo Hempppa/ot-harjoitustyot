@@ -1,20 +1,6 @@
 import pygame
 from levelgeneration.map_generator import MapGen
 from levelgeneration.level import Level
-from gamelogic.input_handlers import GameLoop, MenuScreen, CustomDifficulty
-from gamelogic.input_handlers import LeaderboardInput
-from gamelogic.event_queue import EventQueue
-from gamelogic.clock import Clock
-from repository.leaderboard_repository import LeaderboardRepository
-import database_connection
-
-from ui.level_renderer import LevelRenderer
-from ui.menu_renderer import MenuRenderer
-from ui.difficulty_menu_renderer import DiffRenderer
-from ui.custom_menu_renderer import CustomRenderer
-from ui.leaderboard_input_renderer import LBInputRenderer
-from ui.leaderboard_selection_renderer import LBSelectionRenderer
-from ui.leaderboard_renderer import LBRenderer
 
 CELL_SIZE = 50
 EASY_DIFF = (9,9,9)
@@ -32,19 +18,17 @@ class GameFrame():
         leaderboard_input: Luokka, joka toteuttaa pelin voittoruudun
         leaderboard_repository: Luokka, joka tallentaa ja lukee tietokantaa
     """
-    def __init__(self):
+    def __init__(self, input_handlers, renderers, leaderboard_repo):
         """Alustaa pelin toteutukseen tarvittavat luokat ja pygamen
         """
-        pygame.init()
-        pygame.display.set_caption("Minesweeper")
-        self.display = pygame.display.set_mode((750,750))
-        self.menu_screen = MenuScreen(None, EventQueue(), Clock())
-        self.game_loop = GameLoop(None, None, EventQueue(), Clock())
-        self.custom_menu = CustomDifficulty(None, EventQueue(), Clock())
-        self.leaderboard_input = LeaderboardInput(None, EventQueue(), Clock())
+        self.renderers = renderers
 
-        connection = database_connection.get_database_connection()
-        self.leaderboard_repository = LeaderboardRepository(connection)
+        self.menu_screen = input_handlers[0]
+        self.game_loop = input_handlers[1]
+        self.custom_menu = input_handlers[2]
+        self.leaderboard_input = input_handlers[3]
+
+        self.leaderboard_repository = leaderboard_repo
 
     def menu(self):
         """Aloittaa sovelluksen toteutuksen, tästä poistuessa peli suljetaan
@@ -61,7 +45,7 @@ class GameFrame():
                     continue
                 (grid_x, grid_y, mines) = selected
             elif option_select == 2:
-                return_case = self.enter_leaderboard()
+                return_case = self.leaderboard_selection()
                 if return_case == -1:
                     break
                 continue
@@ -77,7 +61,7 @@ class GameFrame():
                       -1 on ruksin painallus, 5 on esc ja 0-2 on valikon vaihtoehdot
         """
         while True:
-            self.menu_screen.set_renderer(MenuRenderer(self.display))
+            self.menu_screen.set_renderer(self.renderers[0])
             selected = self.menu_screen.start()
             if selected == 5:
                 continue
@@ -93,7 +77,7 @@ class GameFrame():
             selected tuple(x,y,mines): palauttaa tässä muodossa kentän koon ja miinojen määrän
         """
         if selection == 0:
-            self.menu_screen.set_renderer(DiffRenderer(self.display))
+            self.menu_screen.set_renderer(self.renderers[2])
             diff = self.menu_screen.start()
             selected = MEDIUM_DIFF
             if diff in (-1,5):
@@ -108,7 +92,8 @@ class GameFrame():
                 # hard
                 selected = HARD_DIFF
         elif selection == 1:
-            self.custom_menu.set_renderer(CustomRenderer(self.display, MEDIUM_DIFF))
+            self.renderers[3].set_active(0)
+            self.custom_menu.set_renderer(self.renderers[3])
             selected = self.custom_menu.start()
         return selected
 
@@ -128,9 +113,8 @@ class GameFrame():
         mine_field = MapGen(grid_x, grid_y, mines)
         level = Level(mine_field.field, CELL_SIZE)
 
-        pygame.display.set_mode((grid_x*CELL_SIZE, grid_y*CELL_SIZE))
-        renderer = LevelRenderer(self.display, level)
-        self.game_loop.set_renderer(renderer)
+        self.renderers[1].set_level(level, (grid_x*CELL_SIZE, grid_y*CELL_SIZE))
+        self.game_loop.set_renderer(self.renderers[1])
 
         end_condition = self.game_loop.start()
         if end_condition[0] == -1:
@@ -139,13 +123,10 @@ class GameFrame():
             pygame.time.wait(3000)
         elif end_condition[0] == 1:
             pygame.time.wait(1000)
-            #leaderboard toiminnallisuus
             is_saved = self.save_game_score((grid_x,grid_y,mines), end_condition[1])
             if is_saved in (-1,5):
                 return is_saved
-            renderer = LBRenderer(self.display, is_saved, self.leaderboard_repository)
-            self.menu_screen.set_renderer(renderer)
-            self.menu_screen.start()
+            return self.enter_leaderboard(is_saved)
         return 5
 
     def save_game_score(self, difficulty, time):
@@ -159,22 +140,24 @@ class GameFrame():
             mahdollisia (-1,0,1,2,3,5):
                 -1 poistutaan pelistä, 5 poistutaan alkunäkymään, 0-3 tallennettiin tulos
         """
-        self.leaderboard_input.set_renderer(LBInputRenderer(self.display, time))
+        self.renderers[6].set_active(0)
+        self.renderers[6].set_time(time)
+        self.leaderboard_input.set_renderer(self.renderers[6])
         username = self.leaderboard_input.start()
         if username in (-1,5):
             return username
         if difficulty == EASY_DIFF:
-            diff = 1
+            diff = "Easy", 1
         elif difficulty == MEDIUM_DIFF:
-            diff = 2
+            diff = "Medium", 2
         elif difficulty == HARD_DIFF:
-            diff = 3
+            diff = "Hard", 3
         else:
-            diff = 0
-        self.leaderboard_repository.add_score(username, diff, time)
-        return diff
+            diff = "Custom", 0
+        self.leaderboard_repository.add_score(username, diff[0], time)
+        return diff[1]
 
-    def enter_leaderboard(self):
+    def leaderboard_selection(self):
         """Alkunäkymästä voi myös siirtyä katsomaan tulostaulua,
         ensin valitaan kuitenkin mitkä tulokset näytetään
 
@@ -182,17 +165,24 @@ class GameFrame():
             int: -1 tai 5, -1 poistutaan pelistä, 5 palataan alkunäkymään
         """
         while True:
-            self.menu_screen.set_renderer(LBSelectionRenderer(self.display))
+            self.menu_screen.set_renderer(self.renderers[5])
             select = self.menu_screen.start()
             if select in (-1,5):
                 return select
-            renderer = LBRenderer(self.display, select, self.leaderboard_repository)
-            self.menu_screen.set_renderer(renderer)
-            returnal = self.menu_screen.start()
+            returnal = self.enter_leaderboard(select)
             if returnal == 5:
                 continue
             return -1
 
-if __name__ == "__main__":
-    game = GameFrame()
-    game.menu()
+    def enter_leaderboard(self, difficulty):
+        if difficulty == 1:
+            diff = "Easy"
+        elif difficulty == 2:
+            diff = "Medium"
+        elif difficulty == 3:
+            diff = "Hard"
+        else:
+            diff = "Custom"
+        self.renderers[4].set_scores(diff)
+        self.menu_screen.set_renderer(self.renderers[4])
+        return self.menu_screen.start()

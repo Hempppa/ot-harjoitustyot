@@ -1,12 +1,18 @@
 from invoke import task
 
 @task()
+def alternative_tests(ctx):
+    ctx.run("mv .coveragerc temp", pty=True)
+    ctx.run("mv alternativetestcoverage .coveragerc", pty=True)
+    ctx.run("mv temp alternativetestcoverage", pty=True)
+
+@task()
 def build(ctx):
     ctx.run("python3 src/initialize_database.py", pty=True)
 
 @task
 def start(ctx):
-    ctx.run("python3 src/main.py", pty=True)
+    ctx.run("python3 src/index.py", pty=True)
 
 @task
 def test(ctx):

@@ -3,4 +3,5 @@ __pycache__
 .coverage
 htmlcov
 leaderboard.db
+testi.db
 .vscode

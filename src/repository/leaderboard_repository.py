@@ -22,7 +22,7 @@ class LeaderboardRepository:
             list: lista tuloksista
         """
         cursor = self._connection.cursor()
-        if difficulty == 0:
+        if difficulty == "Custom":
             cursor.execute("SELECT * FROM Scores ORDER BY time LIMIT 10")
         else:
             cursor.execute(

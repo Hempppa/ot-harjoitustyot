@@ -1,0 +1,3 @@
+[run]
+source = src
+omit = src/**/__init__.py, src/tests/**, src/assets/**, src/sprites/**, src/**/config.py, src/**/database_connection.py, src/**/clock.py, src/**/event_queue.py, src/**/index.py, src/**/initialize_database.py, laskarit

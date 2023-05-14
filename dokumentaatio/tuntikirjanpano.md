@@ -14,5 +14,7 @@
 |       | 2    | Dokumentaation korjaamista, repon siistimistä |
 | 29.4  | 3    | SQLITE muistuttelua |
 | 1.5   | 7    | Leaderboardi/tietokanta lisätty peliin |
-| 2.5.  | 3    | Docstring dokumentaatio |
-| yht   | 47   | - | 
+| 2.5   | 3    | Docstring dokumentaatio |
+| 12.5  | 3    | rendererien siistimistä |
+| 13.5  | 5    | index.py ja testaus viimeiseen asti |
+| yht   | 55   | - | 
