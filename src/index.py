@@ -11,6 +11,7 @@ from ui.renderers import MenuRenderer, LevelRenderer, DiffRenderer, CustomRender
 from ui.renderers import LBInputRenderer, LBSelectionRenderer, LBRenderer
 
 if __name__ == "__main__":
+    #Alustaa pelin ja injektoi GameFrameen input_handlerit ja rendererit sekä repository luokan
     pygame.init()
     pygame.display.set_caption("Minesweeper")
     display = pygame.display.set_mode((750,750))

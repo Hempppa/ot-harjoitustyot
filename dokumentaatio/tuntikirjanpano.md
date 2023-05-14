@@ -18,4 +18,5 @@
 |       | 2    | Muu dokumentaatio, arkkitehtuuri, kayttoohje, changelog |
 | 12.5  | 3    | rendererien siistimistä |
 | 13.5  | 5    | index.py ja testaus viimeiseen asti |
-| yht   | 57   | - |
+| 14.5  | 2    | dokumentaatio viimeistelyä |
+| yht   | 59   | - |

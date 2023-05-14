@@ -12,6 +12,7 @@ class GameFrame():
        ja tallentaa tietokantaan suorituksia
 
     Attributes:
+        renderers: rendererit, joita input_handlereille annetaan
         menu_screen: Luokka, joka toteuttaa valikon, jossa on renderin määräämät vaihtoehdot
         game_loop: Luokka, joka toteuttaa Level olion mukaisen pelin
         custom_menu: Luokka, joka toteuttaa "cutom difficulties" näkymän
@@ -19,7 +20,13 @@ class GameFrame():
         leaderboard_repository: Luokka, joka tallentaa ja lukee tietokantaa
     """
     def __init__(self, input_handlers, renderers, leaderboard_repo):
-        """Alustaa pelin toteutukseen tarvittavat luokat ja pygamen
+        """Tallennetaan annetut tiedot. input_handlerit erikseen selvyyden vuoksi,
+        rendereitä on liikaa tähän
+
+        Args:
+            input_handlers: Luokat jotka lukevat syötteitä
+            renderers: Luokat jotka määräävät näkymän
+            leaderboard_repo: Luokka joka tallentaa ja lukee tietokantaa
         """
         self.renderers = renderers
 
@@ -133,8 +140,8 @@ class GameFrame():
         """Luetaan käyttäjänimi ja tallennetaan tiedot tietokantaan
 
         Args:
-            difficulty int: voitetun pelin vaikeustaso
-            time float: peliin kulunut aika
+            difficulty: voitetun pelin vaikeustaso
+            time: peliin kulunut aika
 
         Returns:
             mahdollisia (-1,0,1,2,3,5):
@@ -175,6 +182,14 @@ class GameFrame():
             return -1
 
     def enter_leaderboard(self, difficulty):
+        """Siirrytään difficultyn osoittamana tulostauluun
+
+        Args:
+            difficulty: vaikeustaso, jonka tulokset näytetään
+
+        Returns:
+            int: -1 tai 5, -1 poistutaan pelistä, 5 palataan edelliseen näkymään
+        """
         if difficulty == 1:
             diff = "Easy"
         elif difficulty == 2:

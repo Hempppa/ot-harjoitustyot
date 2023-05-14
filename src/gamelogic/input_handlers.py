@@ -301,13 +301,5 @@ class GameLoop(DefaultLoop):
                 game_situation = self._level.cell_clicked(event.button, event.pos)
                 if game_situation in (1, 0):
                     self._render()
-                    #Ilman tätä peli hajoaa kun ei rekisteröi MOUSEUP
-                    self.wait_for_mouse_button_up(event.button)
                     return game_situation
         return 10
-
-    def wait_for_mouse_button_up(self, button):
-        while True:
-            event = self._event_queue.wait()
-            if event.type == pygame.MOUSEBUTTONUP and event.button == button:
-                break
