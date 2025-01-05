@@ -1,6 +1,5 @@
 # Käyttöohje
 
-Projektin viimeisimmän version voi ladata 
 
 ## Konfigurointi
 
@@ -9,19 +8,6 @@ Sovelluksen käyttämiä tiedostonnimiä voi muuttaa, ne löytyvät .env tiedost
 LEADERBOARD_REPO=leaderboard.db
 ```
 
-## Käynnistäminen
-Alkuun pääsee kun ensin asentaa riippuvaisuudet
-```bash
-poetry install
-```
-ja sen jälkeen vielä alustaa tietokannan 
-```bash
-poetry run invoke build
-```
-Tämän jälkeen peliä voi pelata komennolla:
-```bash
-poetry run invoke start
-```
 ## Alkunäkymästä peliin
 
 Peli avautuu vastaavanlaiseen näkymään
